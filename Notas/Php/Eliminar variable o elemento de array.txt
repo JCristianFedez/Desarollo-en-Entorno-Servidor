@@ -1,0 +1,5 @@
+//Aray
+unset($miArray[0]);
+
+//variable
+unset($miVarible);

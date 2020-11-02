@@ -1,0 +1,47 @@
+<!--NOTA: 
+	Pasar a cadena de texto: $cadenaDeTexto=implode(",", $array);
+	Pasar a array: $array = explode(",", $cadenaDeTexto);
+-->
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="ISO-8859-15">
+        <title>PosicionEnArray</title>
+    </head>
+    <body>
+    <center>
+        <h1>Posicion de N en array</h1>
+        <?php
+        include '../Funciones/ArrayUni.php';
+
+        if (!isset($_GET["n"])) {
+            $array = generaArrayInt(10, 0, 10);
+            foreach ($array as $value) {
+                echo "$value, ";
+            }
+            ?>
+            <br><br>
+            <form action="#" method="get">
+                <label>Numero: <input type="number" name="n"></label>
+                <input type="hidden" name="array" value="<?php echo implode(",", $array); ?>"><!--Se pasa como string-->
+                <br>
+                <input type="submit">
+            </form>
+            <?php
+        } else {
+            $n = $_GET["n"];
+            $array = explode(",", $_GET["array"]); //Se recoje y se transforma a array
+            foreach ($array as $value) {
+                echo "$value, ";
+            }
+        }
+        ?>
+    </center>
+</body>
+</html>

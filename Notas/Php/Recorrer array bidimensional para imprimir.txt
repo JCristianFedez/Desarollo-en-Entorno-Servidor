@@ -1,0 +1,16 @@
+            
+foreach ($array as $fila) {  
+	foreach ($fila as $columnas) {
+		echo "$columnas - ";
+        }
+       echo "<br>";
+}
+
+
+//Forma 2
+//    for ($f = 0; $f < count($array); $f++) {
+//        for ($c = 0; $c < count($array[0]); $c++) {
+//            echo $array[$f][$c] . " - ";
+//        }
+//        echo "<br>";
+//    }

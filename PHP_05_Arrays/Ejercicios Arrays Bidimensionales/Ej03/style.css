@@ -1,0 +1,59 @@
+body{
+    width: 100%;
+    margin:0px;
+    padding: 0px;
+}
+table,td{
+    border:1px solid black;
+    border-collapse:collapse;
+}
+
+table{
+    background-image: url(Entera.jpg);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin:0 auto;
+}
+
+td{
+    background-color: grey;
+    padding:1em;
+    cursor: pointer;
+}
+
+a{
+    padding:1em;
+}
+form{/*Centrar Formulario*/
+    margin: 0 auto;
+    width: min-content;
+    background-color: red;
+    text-align: center;
+}
+input{
+    margin:.3em;
+}
+button{/*Centrar Boton*/
+    display: block;
+    margin:0 auto;
+}
+
+h1,h4{
+    text-align: center;
+}
+.marcado{
+    visibility: hidden;
+}
+
+.sinMarcar{
+    visibility: visible;
+}
+
+.msg_ganar{
+    color:green;
+}
+
+.msg_perder{
+    color:red;
+}

@@ -1,0 +1,28 @@
+
+body{
+    padding: 0px;
+    margin: 0px;
+    border:none;
+    width: 100%;
+}
+h1,h2,legend{
+    text-align:center;
+
+}
+
+.ingredientes{
+    width:290px;
+    margin: 0 auto;
+}
+
+input[type=checkbox]{
+    margin: 1em;
+}
+.cancelar{
+    text-align: center;
+}
+.cancelar button{
+    margin:auto;
+    display:block;
+    margin-top:1em;
+}

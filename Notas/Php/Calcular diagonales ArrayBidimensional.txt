@@ -1,0 +1,31 @@
+
+echo "<table>";
+  for ($x = 0; $x < 9; $x++) {
+    echo "<tr>";
+    for ($y = 0; $y < 6; $y++) {
+      if ($numero[$x][$y] == $ValorDeFigura) {
+        echo '<td><span style="color: blue; font-weight:bold">'.$numero[$x][$y].' </span></td>';
+      } else if (abs((abs($x) - abs($xFigura))) == abs((abs($y) - abs($yFigura)))) { //Con esta fila se calcula la diagonal
+        echo '<td><span style="color: green; font-weight:bold">'.$numero[$x][$y].' </span></td>';
+      } else {
+        echo '<td>'.$numero[$x][$y].'</td>';
+      }
+    }
+    echo "</tr>";  
+  }
+  echo "</table>";
+
+
+xFigura==a la fila de la figura
+yFigura==a la columna de la figura
+
+
+FORMA 2
+
+ for ($fila = 0; $fila < count($arrayBi); $fila++) {
+            for ($columna = 0; $columna < count($arrayBi[$fila]); $columna++) {
+                if (((($posFila - $fila) == ($posColumna == $columna)) && ($direccion == "nose")) || ((($fila - $posFila) == ($posColumna == $columna)) && ($direccion = "neso"))) {
+                    $arrayDiagonal[] = $arrayBi[$fila][$columna];
+                }
+            }
+        }

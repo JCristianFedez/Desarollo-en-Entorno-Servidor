@@ -1,0 +1,2 @@
+$cadenaTexto=base64_encode(serialize($array));
+$array=unserialize(base64_decode($cadenaTexto)); 
