@@ -1,2 +1,28 @@
 $cadenaTexto=base64_encode(serialize($array));
 $array=unserialize(base64_decode($cadenaTexto)); 
+
+
+
+CON IMPLODE Y EXPLODE
+
+$miArray= array_fill(0,3,array_fill(0,3,"platano"));//Array 3x3
+$miArrayStr="";
+
+foreach ($miArray as  $value) {
+    $miArrayStr.=implode(",",$value);
+    $miArrayStr.="-";
+}
+
+$miArrayStr=substr($miArrayStr,0,-1);//Elimino el ultimo guion
+
+
+echo $miArrayStr;//String del array bidimensional
+
+echo "<br><br>";
+
+$arrayUni = explode("-", $miArrayStr);//Se separan en array simple
+foreach ($arrayUni as $value) {//Se separa en array bidimensional
+    $arrayBi[]=explode(",",$value);
+}
+ 
+print_r($arrayBi);
