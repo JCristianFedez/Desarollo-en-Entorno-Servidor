@@ -1,5 +1,10 @@
 <?php
-function combinacion($myArray=null):array
+/*
+Se le envia un array con los numeros de una primimtiva,
+si no se el envia nada lo crea y si faltan valores
+en el array tambien se crean
+*/
+function combinacion($myArray=null)
 {
     if (!$myArray) {//Si no se pasa ningun valor
         for ($i=0; $i < 6; $i++) {
@@ -19,6 +24,9 @@ function combinacion($myArray=null):array
     return $myArray;
 }
 
+/*
+Imprime un array con un titulo de forma vistosa
+*/
 function imprimeApuesta($myArray, $title="Combinacion generada para la Primitiva") : void
 {
     ?>
