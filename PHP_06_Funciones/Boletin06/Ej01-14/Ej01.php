@@ -8,6 +8,11 @@
 <body>
     <?php 
     include "misMatematicas.php";
+    if(!isset($_REQUEST["miNum"])){
+        $miNum=0;
+    }
+    ?>
+    <?php
     $miNum=1221;
     if(esCapicua($miNum)){
         echo "$miNum es capicua";

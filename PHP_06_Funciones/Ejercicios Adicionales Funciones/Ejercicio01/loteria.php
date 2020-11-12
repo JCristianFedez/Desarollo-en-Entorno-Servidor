@@ -4,21 +4,22 @@ Se le envia un array con los numeros de una primimtiva,
 si no se el envia nada lo crea y si faltan valores
 en el array tambien se crean
 */
-function combinacion(array $myArray=null):array
+function combinacion(array &$myArray=null):array
 {
+    $randArray = range(1, 49);
+    shuffle($randArray);
+
     if (!$myArray) {//Si no se pasa ningun valor
         for ($i=0; $i < 6; $i++) {
-            $myArray[$i]=rand(1, 49);
+            $myArray[$i]=$randArray[$i];
         }
         $myArray[count($myArray)]=rand(1, 999);
     } else {
-        foreach ($myArray as $key => &$value) {
-            if ($key!=count($myArray)-1) {
-                $value=($value=="")?rand(1, 49):$value;
-            } else {
-                $value=($value=="")?rand(1, 999):$value;
-            }
+        for ($i=0; $i < 6; $i++) {
+            $myArray[$i]=($myArray[$i]=="")?$randArray[$i]:$myArray[$i];
         }
+        $i=count($myArray)-1;
+        $myArray[$i]=($myArray[$i]=="")?rand(1,999):$myArray[$i];
     }
 
     return $myArray;
