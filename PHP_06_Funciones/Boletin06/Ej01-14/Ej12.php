@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>voltea</title>
+    <title>Pega por delante</title>
 </head>
 <body>
-<h1>Voltea</h1>
+<h1>Pega por delante</h1>
 <?php
     include "misMatematicas.php";
     ?>
     <form action="#" method="post">
-        <label for="miNum">Introduce numero:
+        <label for="miNum">Introduce numero 1:
             <input type="number" name="miNum" id="miNum" required>
+        </label>
+        <br>
+        <label for="miNum2">Introduce numero 2:
+            <input type="number" name="miNum2" id="miNum2" required>
         </label>
         <br>
         <input type="submit" value="Calcular">
     </form>
 
     <?php
-        if (isset($_REQUEST["miNum"])) {
+        if (isset($_REQUEST["miNum"]) || isset($_REQUEST["miNum2"])) {
             $miNum=$_REQUEST["miNum"];
-            echo "$miNum volteado es ".voltea($miNum);
+            $miNum2=$_REQUEST["miNum2"];
+            echo "Numero 1 [$miNum], Numero 2 [$miNum2], numeros pegados: ".pegaPorDelante($miNum,$miNum2);
         }
 
     ?>

@@ -6,14 +6,28 @@
     <title>esPrimo</title>
 </head>
 <body>
-    <?php 
+<h1>Primo</h1>
+<?php
     include "misMatematicas.php";
-    $miNum=-1;
-    if(esPrimo($miNum)){
-        echo "$miNum es primo";
-    }else{
-        echo "$miNum no es primo";
-    }
+    ?>
+    <form action="#" method="post">
+        <label for="miNum">Introduce numero:
+            <input type="number" name="miNum" id="miNum" required>
+        </label>
+        <br>
+        <input type="submit" value="Calcular">
+    </form>
+
+    <?php
+        if (isset($_REQUEST["miNum"])) {
+            $miNum=$_REQUEST["miNum"];
+            if (esPrimo($miNum)) {
+                echo "$miNum es primo";
+            } else {
+                echo "$miNum no es primo";
+            }
+        }
     ?>
 </body>
 </html>
+

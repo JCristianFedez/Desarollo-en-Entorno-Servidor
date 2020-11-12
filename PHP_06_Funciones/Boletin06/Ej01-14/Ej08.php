@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>voltea</title>
+    <title>posicion de digito</title>
 </head>
 <body>
-<h1>Voltea</h1>
+<h1>Position de digito</h1>
 <?php
     include "misMatematicas.php";
     ?>
@@ -15,13 +15,18 @@
             <input type="number" name="miNum" id="miNum" required>
         </label>
         <br>
+        <label for="digito">Introduce digito:
+            <input type="number" name="digito" id="digito" required>
+        </label>
+        <br>
         <input type="submit" value="Calcular">
     </form>
 
     <?php
-        if (isset($_REQUEST["miNum"])) {
+        if (isset($_REQUEST["miNum"]) || isset($_REQUEST["digito"])) {
             $miNum=$_REQUEST["miNum"];
-            echo "$miNum volteado es ".voltea($miNum);
+            $digito=$_REQUEST["digito"];
+            echo "La primera ocurrencia de $digito en $miNum se encuntra en la posicion: ".posicionDeDigito($miNum,$digito);
         }
 
     ?>

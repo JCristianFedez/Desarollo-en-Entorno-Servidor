@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EsCapicua</title>
 </head>
+
 <body>
-    <?php 
-    include "misMatematicas.php";
-    if(!isset($_REQUEST["miNum"])){
-        $miNum=0;
-    }
-    ?>
+<h1>Capicua</h1>
     <?php
-    $miNum=1221;
-    if(esCapicua($miNum)){
-        echo "$miNum es capicua";
-    }else{
-        echo "$miNum no capicua";
-    }
+    include "misMatematicas.php";
     ?>
+    <form action="#" method="post">
+        <label for="miNum">Introduce numero:
+            <input type="number" name="miNum" id="miNum" required>
+        </label>
+        <br>
+        <input type="submit" value="Calcular">
+    </form>
+
+    <?php
+        if (isset($_REQUEST["miNum"])) {
+            $miNum=$_REQUEST["miNum"];
+            if (esCapicua($miNum)) {
+                echo "$miNum es capicua";
+            } else {
+                echo "$miNum no capicua";
+            }
+        }
+
+    ?>
+
 </body>
+
 </html>

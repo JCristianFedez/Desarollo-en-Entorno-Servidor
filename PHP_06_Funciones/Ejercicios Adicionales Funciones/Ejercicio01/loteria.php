@@ -1,9 +1,9 @@
 <?php
-/*
-Se le envia un array con los numeros de una primimtiva,
-si no se el envia nada lo crea y si faltan valores
-en el array tambien se crean
-*/
+/**
+ * Se le envia un array con los numeros de una primimtiva,
+ *  si no se el envia nada lo crea y si faltan valores en
+ *  el array tambien se crean
+ */
 function combinacion(array &$myArray=null):array
 {
     $randArray = range(1, 49);
@@ -25,8 +25,8 @@ function combinacion(array &$myArray=null):array
     return $myArray;
 }
 
-/*
-Imprime un array con un titulo de forma vistosa
+/**
+*Imprime un array con un titulo de forma vistosa
 */
 function imprimeApuesta(array $myArray, string $title="Combinacion generada para la Primitiva") : void
 {

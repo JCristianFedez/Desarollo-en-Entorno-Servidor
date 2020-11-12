@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>voltea</title>
+    <title>Quita por detras</title>
 </head>
 <body>
-<h1>Voltea</h1>
+<h1>Quita por detras</h1>
 <?php
     include "misMatematicas.php";
     ?>
@@ -15,13 +15,18 @@
             <input type="number" name="miNum" id="miNum" required>
         </label>
         <br>
+        <label for="digito">Introduce digitos a quitar:
+            <input type="number" name="digito" id="digito" required>
+        </label>
+        <br>
         <input type="submit" value="Calcular">
     </form>
 
     <?php
-        if (isset($_REQUEST["miNum"])) {
+        if (isset($_REQUEST["miNum"]) || isset($_REQUEST["digito"])) {
             $miNum=$_REQUEST["miNum"];
-            echo "$miNum volteado es ".voltea($miNum);
+            $digito=$_REQUEST["digito"];
+            echo "Numero sin modificar $miNum, Numero quitandole $digito por la derecha: ".quitaPorDetras($miNum,$digito);
         }
 
     ?>

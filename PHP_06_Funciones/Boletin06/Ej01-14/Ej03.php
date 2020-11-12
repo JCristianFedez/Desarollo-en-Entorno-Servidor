@@ -6,10 +6,24 @@
     <title>siguientePrimo</title>
 </head>
 <body>
-    <?php 
+<h1>Siguiente Primo</h1>
+<?php
     include "misMatematicas.php";
-    $miNum=3;
-    echo siguientePrimo($miNum);
+    ?>
+    <form action="#" method="post">
+        <label for="miNum">Introduce numero:
+            <input type="number" name="miNum" id="miNum" required>
+        </label>
+        <br>
+        <input type="submit" value="Calcular">
+    </form>
+
+    <?php
+        if (isset($_REQUEST["miNum"])) {
+            $miNum=$_REQUEST["miNum"];
+            echo "El siguiente primo de $miNum es ".siguientePrimo($miNum);
+        }
+
     ?>
 </body>
 </html>
