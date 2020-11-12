@@ -19,7 +19,7 @@ $LETERS = ["A","B","C","D","E"];
  * Se le pasa un perfil y devuelve una matriz correspondiente a las tarjetas
  * de cordenadas de dicho perfil
  */
-function dameTarjeta($profile)
+function dameTarjeta(string $profile):array
 {
     switch ($profile) {
         case 'admin':
@@ -42,7 +42,7 @@ function dameTarjeta($profile)
  * Se le pasa la matriz de cordenadas, unas cordenadas y un valor y
  * devolbera un boleano segun si a hacertado o no
  */
-function compruebaClave($myArray,$row,$col,$code)
+function compruebaClave(array $myArray,int $row,int $col,int $code):bool
 {
     $bol=($myArray[$row][$col]==$code)?true:false;
     return $bol;
@@ -51,7 +51,7 @@ function compruebaClave($myArray,$row,$col,$code)
 /**
  * Imprime una tarjeta, (Array Bidimensional)
  */
-function imprimeTarjeta($profile) : void
+function imprimeTarjeta(string $profile) : void
 {
     switch ($profile) {
         case 'admin':
