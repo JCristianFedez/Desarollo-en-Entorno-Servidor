@@ -28,9 +28,9 @@
     if(isset($_REQUEST["num1"]) && isset($_REQUEST["num2"])){
         $num1=$_REQUEST["num1"];
         $num2=$_REQUEST["num2"];
-        while($num1<$num1){
-            $num1=esCapicua($num1);
-            echo "[$num1]";
+        while($num1<=$num2){
+            echo (esCapicua($num1))?"[$num1]":"";
+            $num1++;
         }
     }
     ?>

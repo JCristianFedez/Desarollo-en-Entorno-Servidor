@@ -10,7 +10,7 @@
 <body>
     <h1>Primos entre dos numeros</h1>
     <?php
-    include_once "../Ej01-14/misMatematicas.php"
+    include_once "../Ej01-14/misMatematicas.php";
     ?>
     <form action="#" method="post">
         <label for="num1">Numero Inicial
@@ -28,7 +28,7 @@
     if(isset($_REQUEST["num1"]) && isset($_REQUEST["num2"])){
         $num1=$_REQUEST["num1"];
         $num2=$_REQUEST["num2"];
-        while($num1<$num1){
+        while(siguientePrimo($num1)<=$num2){
             $num1=siguientePrimo($num1);
             echo "[$num1]";
         }
