@@ -18,17 +18,30 @@ contar cuántas palabras tiene cada frase.  -->
     if(isset($_REQUEST["myStr"])){
         $myStr=$_REQUEST["myStr"];
         $cadena=implode(' ',array_filter(explode(' ',$myStr))); //Quito espacios
-        $str=explode(".",$cadena);//Divido dos array
-        
-        echo "$rotated, ";
-        do {
-            //Funcion:
-            //Cojo el Ultimo caracter: Hola: a
-            //Pego las primeras letras despues del primer caracter: a+hol
-            $rotated=substr($rotated,-1,1).substr($rotated,0,-1);
-            echo "$rotated, ";
-        } while ($rotated!=$myStr);
-        echo " (Stop)";
+        $frases;
+        $aux="";
+
+        for ($i=0; $i < strlen($myStr); $i++) { //Sirve para muchas frases
+            if($myStr[$i]=="."){
+                $frases[]=$aux;
+                $aux="";
+            }else{
+                $aux.=$myStr[$i];
+            }
+        }
+        $frases[]=$aux;
+
+        echo "Frase: $myStr<br>";
+        for ($i=0; $i < count($frases); $i++) { 
+            echo "Oracion $i: [".$frases[$i]."] tiene ".str_word_count($frases[$i])." palabras<br>";
+        }
+
+        //Solo para dos frases, es decir un punto
+/*         $frase1=substr($cadena,0,mb_strpos($cadena,"."));
+        $frase2=substr($cadena,mb_strpos($cadena,".")+1);
+        echo "Frase: $myStr<br>";
+        echo "Oracion1: $frase1 = ".str_word_count($frase1)." palabras<br>";
+        echo "Oracion2: $frase2 = ".str_word_count($frase2)." palabras<br>"; */
     }
     ?>
 </body>
