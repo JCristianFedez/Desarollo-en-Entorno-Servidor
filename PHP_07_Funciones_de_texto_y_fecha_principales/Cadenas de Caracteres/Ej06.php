@@ -22,10 +22,10 @@ contar cuántas palabras tiene cada frase.  -->
         $aux="";
 
         for ($i=0; $i < strlen($myStr); $i++) { //Sirve para muchas frases
-            if($myStr[$i]=="."){
+            if($myStr[$i]=="." && $aux!=""){
                 $frases[]=$aux;
                 $aux="";
-            }else{
+            }else if($myStr[$i]!="."){//Por si pone varios . seguidos que no los pille como palabra
                 $aux.=$myStr[$i];
             }
         }
