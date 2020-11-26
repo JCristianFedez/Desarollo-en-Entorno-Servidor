@@ -37,7 +37,7 @@ blanco o un signo de puntuación.  -->
 
             }
             if($myText[$i]==" " || $i==strlen($myText)-1){//Compara si es una nueva palabra o si es la ultima
-                if(strlen($aux)>$longerWord[1]){//Palabra mas larga
+                if(strlen($aux)>strlen($longerWord[0])){//Palabra mas larga
                     $longerWord[0]=$aux;
                     $longerWord[1]=strpos($texto,$aux);
                 }
