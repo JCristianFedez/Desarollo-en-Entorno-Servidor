@@ -36,7 +36,7 @@
             echo "Hora incorecta";
         } else {
             $aux=explode(":", $myTime);
-            if (($aux[0]>25||$aux[0]<0) || ($aux[1]>60 || $aux[1]<10)) {
+            if (($aux[0]>25||$aux[0]<0) || ($aux[1]>60 || $aux[1]<00)) {
                 echo "Hora incorrecta";
             } else {
                 echo date("$formatHour:i", strtotime($myTime));
