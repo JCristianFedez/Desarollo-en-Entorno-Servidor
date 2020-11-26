@@ -56,7 +56,7 @@ si no es correcta se debe indicar en un mensaje;
             echo "Fecha incorecta";
         } else {
             $aux=explode("-", $myDate);
-            if (count($aux)!=3 && !checkdate($aux[1], $aux[0], $aux[2])) {
+            if (count($aux)!=3 || !checkdate($aux[1], $aux[0], $aux[2])) {
                 echo "Fecha incorrecta";
             } else {
                 echo date("$formatDay, $formatMonth, $formatYear", strtotime($myDate));
