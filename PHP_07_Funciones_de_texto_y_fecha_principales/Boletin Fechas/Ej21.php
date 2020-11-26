@@ -42,8 +42,8 @@ mayor.  -->
         } else {
             $aux=explode("-", $dateP1);
             $aux2=explode("-", $dateP2);
-            if (count($aux)!=3 && !checkdate($aux[1], $aux[0], $aux[2])
-            || count($aux2)!=3 && !checkdate($aux2[1], $aux2[0], $aux2[2])) {
+            if (count($aux)!=3 || !checkdate($aux[1], $aux[0], $aux[2])
+            || count($aux2)!=3 || !checkdate($aux2[1], $aux2[0], $aux2[2])) {
                 echo "Fecha incorrecta";
             } else {
                echo "Edad $name1 : $dateP1<br>";

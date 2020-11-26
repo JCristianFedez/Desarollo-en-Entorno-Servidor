@@ -34,14 +34,14 @@
         } else {
             $aux=explode("-", $myDate);
             $aux2=explode("-", $nextDate);
-            if (count($aux)!=3 && !checkdate($aux[1], $aux[0], $aux[2])
-            || count($aux2)!=3 && !checkdate($aux2[1], $aux2[0], $aux2[2])) {
+            if (count($aux)!=3 || !checkdate($aux[1], $aux[0], $aux[2])
+            || count($aux2)!=3 || !checkdate($aux2[1], $aux2[0], $aux2[2])) {
                 echo "Fecha incorrecta";
             } else {
                 list($d,$m,$Y) = explode("-",$myDate);
-                $edad= date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y ;
+                $edad= (date("md") < $m.$d )? date("Y")-$Y-1 : date("Y")-$Y ;
 
-                $edadProxima= date("md",strtotime($nextDate)) < $m.$d ? date("Y",strtotime($nextDate))-$Y-1 : date("Y",strtotime($nextDate))-$Y ;
+                $edadProxima= (date("md",strtotime($nextDate)) < $m.$d)? date("Y",strtotime($nextDate))-$Y-1 : date("Y",strtotime($nextDate))-$Y ;
 
                 
                 echo "Edad actual: $edad <br>";
