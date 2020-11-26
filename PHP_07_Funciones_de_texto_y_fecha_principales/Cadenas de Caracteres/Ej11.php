@@ -18,18 +18,16 @@ X:10, I:1. No se tendrá en cuenta el orden solo se sumará el valor de cada let
     <input type="submit" value="Calcular">
 </form>
     <?php
-    if(isset($_REQUEST["romanNumber"])){
+    if (isset($_REQUEST["romanNumber"])) {
         $romanNumber=trim(strtoUpper($_REQUEST["romanNumber"]));//Quitar espacios inicio final
-        $romanNumber=implode(' ',array_filter(explode(' ',$romanNumber))); //Quitar espacios intermedios
+        $romanNumber=implode(' ', array_filter(explode(' ', $romanNumber))); //Quitar espacios intermedios
         $value=0;
-        $valores=[["M"=>1000],["D"=>500],["C"=>100],["L"=>50],["X"=>10],["I"=>1]];
-        if(preg_match("/[^MDCLXI]/",$romanNumber)){//Si no da 0 hay algun numero romano que no esta
+        $valores=["M"=>1000,"D"=>500,"C"=>100,"L"=>50,"X"=>10,"I"=>1];
+        if (preg_match("/[^MDCLXI]/", $romanNumber)) {//Si no da 0 hay algun numero romano que no esta
             echo "Has introducido algun numero que no es romano [$romanNumber]";
-        }else{
-            foreach ($valores as $row) {
-                foreach ($row as  $key => $col){
-                        $value+=$col*substr_count($romanNumber,$key);
-                }
+        } else {
+            foreach ($valores as  $key => $col) {
+                $value+=$col*substr_count($romanNumber, $key);
             }
             echo "$romanNumber = $value";
         }
