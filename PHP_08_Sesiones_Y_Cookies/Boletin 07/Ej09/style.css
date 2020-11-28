@@ -89,3 +89,12 @@ button:hover {
     text-align: center;
     font-size: 2em;
 }
+.adminShop{
+    flex-basis: 100%;
+    text-align: center;
+    /* background-color: red */
+}
+
+.adminShop>button{
+        padding: 1em 2em;
+}

@@ -18,7 +18,28 @@ if(!isset($_SESSION["productos"])){
         "AdidasYeezy" => ["nombre" => "adidas Yeezy Boost 350 (Tail Light)", "precio" => 220, "imagen" => "addidasYeezi.png", "url" => "adidasYeezy.php"]
     ];
 }
+if (isset($_REQUEST["accion"])) {//Al pulsar un boton
+    $accion=$_REQUEST["accion"];
+    
+    if(isset($_REQUEST["codigo"])){
+        $codigo=$_REQUEST["codigo"];
+    }
 
+    if ($accion=="agregar") {
+        $_SESSION["carrito"][$codigo]++;
+
+    } elseif ($accion=="eliminarUnd") {
+        $_SESSION["carrito"][$codigo]--;
+
+    } elseif($accion=="eliminarProducto"){
+        $_SESSION["carrito"][$codigo]=0;
+
+    }elseif ($accion=="vaciar") {
+        session_destroy();
+    }
+    // header("refresh: 0");//Preguntar a fernando porque falla al tercer añadido
+    echo "<meta http-equiv='refresh' content='0' />";
+}
 
 ?>
 
@@ -36,13 +57,13 @@ if(!isset($_SESSION["productos"])){
     <header>
         <h1>Shoes Store</h1>
     </header>
-    <div class="container">
+    <div class="container flex">
         <div class="productos">
             <h1>Productos</h1>
             <?php
             foreach ($_SESSION["productos"] as $codigo => $producto) {
                 ?>
-            <a href="subSites/<?=$producto["url"]?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
+            <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
             <br>
             <?=$producto["nombre"]?>
             <br>
@@ -65,7 +86,7 @@ if(!isset($_SESSION["productos"])){
                 foreach ($_SESSION["productos"] as $codigo => $producto) {
                     if ($_SESSION["carrito"][$codigo]>0) {
                         $totalCarrito+=$_SESSION["carrito"][$codigo] * $producto["precio"]; ?>
-                        <a href="subSites/<?=$producto["url"]?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
+                        <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
                         <br>
                         <?=$producto["nombre"]?>
                         <br>
@@ -83,30 +104,7 @@ if(!isset($_SESSION["productos"])){
                     }
                 }
                 echo "Total carrito : $totalCarrito";
-    
-            if (isset($_REQUEST["accion"])) {//Al pulsar un boton
-                $accion=$_REQUEST["accion"];
-                
-                if(isset($_REQUEST["codigo"])){
-                    $codigo=$_REQUEST["codigo"];
-                }
-    
-                if ($accion=="agregar") {
-                    $_SESSION["carrito"][$codigo]++;
-    
-                } elseif ($accion=="eliminarUnd") {
-                    $_SESSION["carrito"][$codigo]--;
-    
-                } elseif($accion=="eliminarProducto"){
-                    $_SESSION["carrito"][$codigo]=0;
-    
-                }elseif ($accion=="vaciar") {
-                    session_destroy();
-                }
-                // header("refresh: 0");//Preguntar a fernando porque falla al tercer añadido
-                echo "<meta http-equiv='refresh' content='0' />";
-            }
-            
+               
             ?>
     
             <form action="#" method="post">
@@ -117,7 +115,9 @@ if(!isset($_SESSION["productos"])){
         <br>
         <br>
     </div>
-            <?php print_r($_SESSION);?>
+            <?php print_r($_SESSION["carrito"]);?>
+            <br>
+            <?php print_r($_SESSION["productos"]);?>
 </body>
 
 </html>
