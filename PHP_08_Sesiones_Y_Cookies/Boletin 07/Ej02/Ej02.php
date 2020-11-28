@@ -5,15 +5,18 @@ han introducido, la media de los impares y el mayor de los
  final de la introducción de datos pero no se incluye
 en el cómputo. Utiliza sesiones. -->
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION["cant"])) {
     $_SESSION["cant"]=0;
     $_SESSION["cantImpar"]=0;
-    $_SESSION["num"]=0;
     $_SESSION["avgImpar"]=0;
     $_SESSION["maxPar"]=0;
 } else {
-    $_SESSION["cant"]++;
+    if(isset($_REQUEST["num"])){
+        $_SESSION["cant"]+=($_REQUEST["num"]>=0)?1:0;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -41,19 +44,23 @@ if (!isset($_SESSION["cant"])) {
 
     if (isset($_REQUEST["num"])) {
         $num=$_REQUEST["num"];
-        if($num>=0){
-            $_SESSION["num"]+=$num;
+        if ($num>=0) {
+            
 
-            if($num%2==0 && $num>$_SESSION["maxPar"]){
+            if ($num%2==0 && $num>$_SESSION["maxPar"]) {
                 $_SESSION["maxPar"]=$num;
             }
 
-            if($num%2!=0){
+            if ($num%2!=0) {
                 $_SESSION["cantImpar"]++;
                 $_SESSION["avgImpar"]+=$num;
             }
-        }else{
-            $avgImpar=$_SESSION["avgImpar"]/$_SESSION["cantImpar"];
+        } else {
+            if($_SESSION["cantImpar"]!=0){
+                $avgImpar=$_SESSION["avgImpar"]/$_SESSION["cantImpar"];
+            }else{
+                $avgImpar=0;
+            }
             echo "Se han introducido ".$_SESSION["cant"]."<br>";
             echo "El maximo par es: ".$_SESSION["maxPar"]."<br>";
             echo "El promedio par es: $avgImpar <br>";

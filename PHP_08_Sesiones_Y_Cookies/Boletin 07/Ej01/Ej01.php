@@ -5,7 +5,9 @@ usuario indicará que ha terminado de introducir los datos
 cuando meta un número negativo. Utiliza sesiones.
  -->
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION["cant"])) {
     $_SESSION["cant"]=0;
     $_SESSION["numbers"]=0;
