@@ -9,7 +9,7 @@ img {
 }
 
 body {
-    background: linear-gradient(0deg, rgba(140,140,255,1) 0%, rgba(213,255,252,1) 100%);
+    background: linear-gradient(0deg, rgba(140, 140, 255, 1) 0%, rgba(213, 255, 252, 1) 100%);
     background-repeat: no-repeat;
     min-height: 100vh;
 }
@@ -42,22 +42,42 @@ button:hover {
     transform: scale(1.1);
 }
 
+input[type=submit]{
+        box-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
+        text-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
+        color: white;
+        background-image: linear-gradient(120deg, lightblue, blue);
+        transition-property: transform;
+        transition-duration: .25s;
+        transition-timing-function: linear;
+        transition-delay: 0s;
+        padding: .5em 1em;
+        border-radius: .5em;
+    }
+
+    input[type=submit]:hover {
+        transform: scale(1.1);
+    }
+
 .container {
+    padding: 25px 0px;
     margin: 0 auto;
     width: 80%;
-    
     background-color: rgba(81, 216, 104, 0.377);
 }
-.flex{
+
+.flex {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
 }
+
 .container h1 {
     text-align: center;
     border-bottom: 1px solid black;
     margin: 1em;
+    flex-basis: 100%;
 }
 
 
@@ -75,26 +95,57 @@ button:hover {
     text-align: center;
     flex: 1 1 300px;
 }
-.imgBig{
+
+.imgBig {
     width: 60%;
     margin: 0 auto;
     margin-bottom: 50px;
 }
 
-.imgBig img{
+.imgBig img {
     width: 100%;
 }
 
-.description{
+.description {
     text-align: center;
     font-size: 2em;
 }
-.adminShop{
+
+.adminShop {
+    margin-top: 50px;
     flex-basis: 100%;
-    text-align: center;
+    justify-content:space-evenly;
+    display: flex;
+    flex-flow: row warp;
     /* background-color: red */
 }
 
-.adminShop>button{
-        padding: 1em 2em;
+.adminShop>button {
+    padding: 1em 2em;
+}
+
+.addModProducto form{
+    margin-left:50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    
+}
+
+.addModProducto input[type=text],.addModProducto label{
+    padding: 5px;
+    font-size: 1.5em;
+    flex:0 0 40%;
+}
+.addModProdButton{
+    margin-top: 20px;
+    flex:1 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.addModProdButton input[type=submit], .addModProdButton button{
+    padding: 5px;
+    font-size: 1.5em;
 }

@@ -15,7 +15,11 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
     }
     switch ($accion) {
         case 'agregarCarrito':
-            $_SESSION["carrito"][$codigo]++;
+            if(!isset($_SESSION["carrito"][$codigo])){
+                $_SESSION["carrito"][$codigo]=1;
+            }else{
+                $_SESSION["carrito"][$codigo]++;
+            }
             setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
         break;
 
@@ -32,17 +36,11 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
         case 'vaciarCarrito':
             // session_destroy();
             setcookie("carrito", NULL, -1);//Elimino la cookie
-            $_SESSION["carrito"]=["NikeISPA" => 0, "ColumVit" => 0, "NikeBenJerry" => 0, "AdidasYeezy" => 0];
+            unset($_SESSION["carrito"]);
+            $_SESSION["carrito"]=[];//Para que no coja en la linea 68 los valores de la cookie le digo que exista pero vacio
+            setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
             echo "<meta http-equiv='refresh' content='0' />";
         break;
-
-        case 'eliminarProducto':
-            # code...
-            break;
-
-        case 'modificarProducto':
-            # code...
-            break;
 
         case 'borrarCookiesProductos':
             setcookie("productos", NULL, -1);
@@ -50,6 +48,16 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
             break;
 
         case 'actualizarCookiesProductos':
+            //Si elimino un producto lo elimino del carrito
+            $aux=[];//Por defecto carrito sera un array vacio
+            foreach($_SESSION["productos"] as $key => $value){
+                if(isset($_SESSION["carrito"][$key])){
+                    $aux[$key]=$_SESSION["carrito"][$key];
+                }
+            }
+
+            $_SESSION["carrito"]=$aux;
+            setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
             setcookie("productos", base64_encode(serialize($_SESSION['productos'])), time() + 1 * 24 * 3600);
             break;
     }
@@ -62,19 +70,12 @@ if (isset($_COOKIE["carrito"]) && !isset($_SESSION["carrito"])) {
     //Cargo el carrito de las cookies
     $_SESSION["carrito"]=unserialize(base64_decode($_COOKIE["carrito"]));
 }
+//Estructura de Carrito:  $_SESSION["carrito"]=["NikeISPA" => 0, "ColumVit" => 0, "NikeBenJerry" => 0, "AdidasYeezy" => 0];
 
 
 if (isset($_COOKIE["productos"]) && !isset($_SESSION["carrito"])) {
     //Cargo los productos de las cookies
     $_SESSION["productos"]=unserialize(base64_decode($_COOKIE["productos"]));
-}
-
-
-if (!isset($_SESSION["carrito"])) {//Creo sesion y cookie carrito
-    $_SESSION["carrito"]=["NikeISPA" => 0, "ColumVit" => 0, "NikeBenJerry" => 0, "AdidasYeezy" => 0];
-    setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
-    
-    // header("refresh: 0");
 }
 
 
@@ -133,23 +134,23 @@ if (!isset($_SESSION["productos"])) {//Creo sesion y cockie productos
             <?php
                 $totalCarrito=0;
                 foreach ($_SESSION["productos"] as $codigo => $producto) {
-                    if ($_SESSION["carrito"][$codigo]>0) {
-                        $totalCarrito+=$_SESSION["carrito"][$codigo] * $producto["precio"]; ?>
-                        <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
-                        <br>
-                        <?=$producto["nombre"]?>
-                        <br>
-                        Precio: <?=$producto["precio"]; ?>€
-                        <br>
-                        Unidades: <?=$_SESSION["carrito"][$codigo]; ?>
-                        <form action="#" method="post">
-                        <input type="hidden" name="codigo" value="<?=$codigo?>">
-                        <button type="submit" value="eliminarUndCarrito" name="accion">Eliminar Unidad</button>
-                        <button type="submit" value="eliminarProductoCarrito" name="accion">Eliminar Producto</button>
-                        </form>
-                        <br>
-                        <br>
-            <?php
+                    if(isset($_SESSION["carrito"][$codigo])){
+                            $totalCarrito+=$_SESSION["carrito"][$codigo] * $producto["precio"]; ?>
+                            <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
+                            <br>
+                            <?=$producto["nombre"]?>
+                            <br>
+                            Precio: <?=$producto["precio"]; ?>€
+                            <br>
+                            Unidades: <?=$_SESSION["carrito"][$codigo]; ?>
+                            <form action="#" method="post">
+                            <input type="hidden" name="codigo" value="<?=$codigo?>">
+                            <button type="submit" value="eliminarUndCarrito" name="accion">Eliminar Unidad</button>
+                            <button type="submit" value="eliminarProductoCarrito" name="accion">Eliminar Producto</button>
+                            </form>
+                            <br>
+                            <br>
+                <?php
                     }
                 }
                 echo "Total carrito : $totalCarrito";
@@ -164,7 +165,7 @@ if (!isset($_SESSION["productos"])) {//Creo sesion y cockie productos
         <br>
         <br>
         <div class="adminShop">
-        <button onclick="window.location.redirect('subSites/adminShop.php');">Administrar Tienda</button>
+        <button onclick="window.location.replace('subSites/adminShop.php');">Administrar Tienda</button>
         </div>
     </div>
             <?php print_r($_SESSION["carrito"]);?>
@@ -173,7 +174,8 @@ if (!isset($_SESSION["productos"])) {//Creo sesion y cockie productos
             <br><br>
             <?php print_r(unserialize(base64_decode($_COOKIE["carrito"]))); ?>
             <br><br>
-            <?php print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?>
+            <?php 
+            print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?>
 </body>
 
 </html>
