@@ -8,16 +8,14 @@ if(isset($_REQUEST["accion"])){
         $_SESSION["productos"][$_REQUEST["codigo"]]=[
             "nombre"=>$_REQUEST["nombre"],
             "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"],
-            "url"=>$_REQUEST["url"]];
+            "imagen"=>$_REQUEST["imagen"]];
     }
 
     if($_REQUEST["accion"] == "modificarProducto"){
         $_SESSION["productos"][$_REQUEST["codigo"]]=[
             "nombre"=>$_REQUEST["nombre"],
             "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"],
-            "url"=>$_REQUEST["url"]];
+            "imagen"=>$_REQUEST["imagen"]];
     }
 
     if($_REQUEST["accion"] == "eliminarProducto"){
@@ -80,7 +78,7 @@ $productos=$_SESSION["productos"];
         </div>
 
     </div>
-    <?php print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?>
+    <!-- <?php print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?> -->
 
 </body>
 

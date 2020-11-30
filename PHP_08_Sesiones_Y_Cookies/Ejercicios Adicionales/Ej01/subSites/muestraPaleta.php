@@ -12,8 +12,17 @@ if(session_status() == PHP_SESSION_NONE){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     td{
+        border:1px solid black;
         padding:1em;
     }
+    <?php
+    if(isset($_SESSION["colores"]) && isset($_REQUEST["clave"])){
+        $color=$_REQUEST["clave"];
+        echo "body{
+            background-color: ".$_SESSION["colores"][$color].";
+        }";
+    }
+    ?>
     </style>
     <title>Mi Paleta</title>
 </head>
@@ -25,7 +34,7 @@ if(session_status() == PHP_SESSION_NONE){
             if($key%5==0){
                 echo "<tr>";
             }
-            echo "<td style='background-color: $value;'></td>";
+            echo "<td onclick=\"window.location.href='?clave=$key'\" ' style='background-color: $value;'></td>";
         }
     }else{
         echo "<p>No existen colores</p>";
@@ -33,7 +42,7 @@ if(session_status() == PHP_SESSION_NONE){
     ?>
     </table>
     <form action="../Ej01.php" method="post">
-    <button type="submit" name="accion">Añadir mas colores</button> 
+    <button type="submit" name="bodyColor" value="<?=$color?>">Añadir mas colores</button> 
     <br>
     <button type="submit" name="accion" id="borrarSession" value="borrarSession">Nueva Paleta</button> 
     </form>

@@ -25,8 +25,15 @@ if(isset($_REQUEST["accion"])){
     }
     header('Location: Ej01.php');
 }
+
 if(isset($_SESSION["colores"])){
     $cantColor=count($_SESSION["colores"]);
+    if(isset($_REQUEST["bodyColor"])){
+        $bodyColor=$_SESSION["colores"][$_REQUEST["bodyColor"]];
+    }else{
+        $bodyColor=end($_SESSION["colores"]);
+    }
+    
 }else{
     $cantColor=0;
 }
@@ -40,9 +47,9 @@ if(isset($_SESSION["colores"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
     <?php   
-    if(isset($_REQUEST["accion"])){
+    if(isset($_SESSION["colores"]) || isset($_REQUEST["bodyColor"])){
         echo "body{
-            background-color: ".end($_SESSION["colores"]).";
+            background-color: $bodyColor;
         }";
     }
     ?>
@@ -55,8 +62,9 @@ if(isset($_SESSION["colores"])){
     <button type="submit" name="accion" id="agregarColor" value="agregarColor">Añadir nuevo color</button> 
     </form>
     <button onclick="window.location.replace('subSites/muestraPaleta.php');">Muestra Paleta</button>
-    <?php 
-    // print_r($_SESSION["colores"]);
-    ?>
+    <!-- <?php 
+    print_r($_SESSION["colores"]);
+    print_r($_REQUEST["bodyColor"]);
+    ?> -->
 </body>
 </html>

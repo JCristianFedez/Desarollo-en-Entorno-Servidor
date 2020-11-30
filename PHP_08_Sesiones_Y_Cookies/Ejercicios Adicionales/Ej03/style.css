@@ -42,28 +42,29 @@ button:hover {
     transform: scale(1.1);
 }
 
-input[type=submit]{
-        box-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
-        text-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
-        color: white;
-        background-image: linear-gradient(120deg, lightblue, blue);
-        transition-property: transform;
-        transition-duration: .25s;
-        transition-timing-function: linear;
-        transition-delay: 0s;
-        padding: .5em 1em;
-        border-radius: .5em;
-    }
+input[type=submit] {
+    box-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
+    text-shadow: 2px 2px 4px hsla(6, 100%, 50%, 0.5);
+    color: white;
+    background-image: linear-gradient(120deg, lightblue, blue);
+    transition-property: transform;
+    transition-duration: .25s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+    padding: .5em 1em;
+    border-radius: .5em;
+}
 
-    input[type=submit]:hover {
-        transform: scale(1.1);
-    }
+input[type=submit]:hover {
+    transform: scale(1.1);
+}
 
 .container {
     padding: 25px 0px;
     margin: 0 auto;
     width: 80%;
     background-color: rgba(81, 216, 104, 0.377);
+    position: relative;
 }
 
 .flex {
@@ -96,6 +97,30 @@ input[type=submit]{
     flex: 1 1 300px;
 }
 
+.vaciarCarrito {
+    margin-top: 50px;
+    flex: 1 1 100%;
+}
+
+.carritoIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+}
+
+.carritoIcon a {
+    text-decoration: none;
+    color: black;
+}
+
+.carritoIcon i {
+    font-size: 2em;
+}
+.carritoIcon button{
+    padding: .5em;
+}
+
 .imgBig {
     width: 60%;
     margin: 0 auto;
@@ -114,7 +139,7 @@ input[type=submit]{
 .adminShop {
     margin-top: 50px;
     flex-basis: 100%;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
     display: flex;
     flex-flow: row warp;
     /* background-color: red */
@@ -124,28 +149,31 @@ input[type=submit]{
     padding: 1em 2em;
 }
 
-.addModProducto form{
-    margin-left:50px;
+.addModProducto form {
+    margin-left: 50px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
-    
+
 }
 
-.addModProducto input[type=text],.addModProducto label{
+.addModProducto input[type=text],
+.addModProducto label {
     padding: 5px;
     font-size: 1.5em;
-    flex:0 0 40%;
+    flex: 0 0 40%;
 }
-.addModProdButton{
+
+.addModProdButton {
     margin-top: 20px;
-    flex:1 1 100%;
+    flex: 1 1 100%;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
 }
 
-.addModProdButton input[type=submit], .addModProdButton button{
+.addModProdButton input[type=submit],
+.addModProdButton button {
     padding: 5px;
     font-size: 1.5em;
 }
