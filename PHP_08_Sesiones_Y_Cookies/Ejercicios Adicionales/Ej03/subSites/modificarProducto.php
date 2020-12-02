@@ -4,6 +4,11 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 $codigo=$_REQUEST["codigo"];
 $prodAModificar = $_SESSION["productos"][$codigo];
+if($prodAModificar["urlLocal"]){
+    $check="checked";
+}else{
+    $check="";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,14 +34,18 @@ $prodAModificar = $_SESSION["productos"][$codigo];
                 <br>
                 <?php
                 foreach ($prodAModificar as $clave => $prop) {
-                    ?>
+                    if ($clave!="urlLocal") {
+                        ?>
                 <label for="<?=$clave?>"><?=ucfirst($clave)?>:
                     <input type="text" name="<?=$clave?>" id="<?=$clave?>" value="<?=$prop?>" required>
                 </label>
                 <br>
                 <?php
+                    }
                 }
             ?>
+                <label for="urlLocal">La imagen es Local
+                    <input type="checkbox" name="urlLocal" id="urlLocal" <?=$check?>></label>
                 <br>
                 <div class="addModProdButton">
                     <input type="submit" name="accion" value="modificarProducto">

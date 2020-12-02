@@ -40,10 +40,10 @@ if (isset($_COOKIE["productos"]) && !isset($_SESSION["carrito"])) {
 
 if (!isset($_SESSION["productos"])) {//Creo sesion y cockie productos
     $_SESSION["productos"] = [
-        "NikeISPA" => ["nombre" => "Nike ISPA Overreact FK", "precio" => 180, "imagen" => "Nike-Overreact-Flyknit.png"],
-        "ColumVit" => ["nombre" => "Columbia Vitesse", "precio" => 120, "imagen" => "columbiaVitese.png"],
-        "NikeBenJerry" => ["nombre" => "Nike de Ben & Jerry's", "precio" => 100, "imagen" => "Nike-SB-Dunk-Low-Ben-Jerrys.png"],
-        "AdidasYeezy" => ["nombre" => "adidas Yeezy Boost 350 (Tail Light)", "precio" => 220, "imagen" => "addidasYeezi.png"]
+        "NikeISPA" => ["nombre" => "Nike ISPA Overreact FK", "precio" => 180, "imagen" => "Nike-Overreact-Flyknit.png", "urlLocal"=>true],
+        "ColumVit" => ["nombre" => "Columbia Vitesse", "precio" => 120, "imagen" => "columbiaVitese.png", "urlLocal"=>true],
+        "NikeBenJerry" => ["nombre" => "Nike de Ben & Jerry's", "precio" => 100, "imagen" => "Nike-SB-Dunk-Low-Ben-Jerrys.png", "urlLocal"=>true],
+        "AdidasYeezy" => ["nombre" => "adidas Yeezy Boost 350 (Tail Light)", "precio" => 220, "imagen" => "addidasYeezi.png", "urlLocal"=>true]
     ];
 
     setcookie("productos", base64_encode(serialize($_SESSION['productos'])), time() + 1 * 24 * 3600);
@@ -128,10 +128,15 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
             <h1>Productos</h1>
             <?php
             foreach ($_SESSION["productos"] as $codigo => $producto) {
+                if($producto["urlLocal"]){
+                    $aux="imgs/";
+                }else{
+                    $aux="";
+                }
                 ?>
                         <div class="productos">
 
-            <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="imgs/<?=$producto["imagen"]; ?>" alt=""></a>
+            <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="<?=$aux.$producto["imagen"]; ?>" alt=""></a>
             <br>
             <?=$producto["nombre"]?>
             <br>

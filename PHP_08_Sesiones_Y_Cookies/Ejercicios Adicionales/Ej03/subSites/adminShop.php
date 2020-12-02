@@ -5,17 +5,24 @@ if(session_status() == PHP_SESSION_NONE){
 
 if(isset($_REQUEST["accion"])){
     if($_REQUEST["accion"]=="agregarProducto"){
+        if(isset($_REQUEST["urlLocal"])){
+            $aux=true;
+        }else{
+            $aux=false;
+        }
         $_SESSION["productos"][$_REQUEST["codigo"]]=[
             "nombre"=>$_REQUEST["nombre"],
             "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"]];
+            "imagen"=>$_REQUEST["imagen"],
+            "urlLocal"=>$aux];
     }
 
     if($_REQUEST["accion"] == "modificarProducto"){
         $_SESSION["productos"][$_REQUEST["codigo"]]=[
             "nombre"=>$_REQUEST["nombre"],
             "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"]];
+            "imagen"=>$_REQUEST["imagen"],
+            "urlLocal"=>$aux];
     }
 
     if($_REQUEST["accion"] == "eliminarProducto"){
@@ -43,9 +50,14 @@ $productos=$_SESSION["productos"];
     <div class="container flex">
         <?php 
             foreach ($productos as $codigo => $producto) {
+                if($producto["urlLocal"]){
+                    $aux="../imgs/";
+                }else{
+                    $aux="";
+                }
                     ?>
         <div class="productos">
-            <img src="../imgs/<?=$producto["imagen"]; ?>" alt="">
+            <img src="<?=$aux.$producto["imagen"]; ?>" alt="">
             <br>
             <?=$producto["nombre"]?>
             <br>

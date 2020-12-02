@@ -31,14 +31,18 @@ $propiedades=array_keys($_SESSION["productos"][key($_SESSION["productos"])]);
                 <br>
                 <?php
             foreach ($propiedades as $clave => $prop) {
-                ?>
+                if ($prop!="urlLocal") {
+                    ?>
                 <label for="<?=$prop?>"><?=ucfirst($prop)?>: 
                     <input type="text" name="<?=$prop?>" id="<?=$prop?>" required>
                 </label>
                 <br>
                 <?php
+                }
             }
             ?>
+            <label for="urlLocal">La imagen es Local
+            <input type="checkbox" name="urlLocal" id="urlLocal"></label>
                 <br>
                 <div class="addModProdButton">
                     <input type="submit" name="accion" value="agregarProducto">
