@@ -7,23 +7,28 @@ cada línea del archivo, y devuelva un array cuyo índice
 y así sucesivamente (no usar la función file).  -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ej03</title>
 </head>
+
 <body>
     <form action="#" method="post" enctype="multipart/form-data">
-    <label for="myArchivo">Introduzca archivo: 
-    <input type="file" name="myArchivo" id="myArchivo"></label>
-    <br>
-    <input type="button" value="Enviar">
+        <label for="myArchivo">Introduzca archivo:
+            <input type="file" name="myArchivo" id="myArchivo"></label>
+        <br>
+        <input type="submit" value="Enviar">
     </form>
 
     <?php 
         if(isset($_FILES["myArchivo"])){
             $archivo=$_FILES["myArchivo"];
-            echo obtenerArrNum($archivo["tmp_name"]);
+            $numsRows=obtenerArrNum($archivo["tmp_name"]);
+            for ($i=0; $i < count($numsRows); $i++) { 
+            echo "Fila $i : ".$numsRows[$i]."<br>";
+            }
         }
 
         function obtenerArrNum($ruta){
@@ -32,7 +37,7 @@ y así sucesivamente (no usar la función file).  -->
                 $wordArray=[];
 
                 while(!feof($tempFile)){
-                    $tempFile[]=fgetc($tempFile);
+                    $wordArray[]=fgets($tempFile);
                 }
 
                 fclose($tempFile);
@@ -42,5 +47,12 @@ y así sucesivamente (no usar la función file).  -->
             }
         }
     ?>
+
+    <script>
+        if (window.history.replaceState) { // verificamos disponibilidad
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
 </body>
+
 </html>
