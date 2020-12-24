@@ -14,30 +14,65 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (isset($_COOKIE["carrito"]) && !isset($_SESSION["carrito"])) {
-    //Cargo el carrito de las cookies
-    $_SESSION["carrito"]=unserialize(base64_decode($_COOKIE["carrito"]));
+$FILE_PRODUCTS="file_data/productosTienda.txt";
+$FILE_PRODUCTS_DEFAULT="file_data/productosTiendaDefault.txt";
+$FILE_CART="file_data/carrito.txt";
+
+
+//Cargo carrito
+if (file_exists($FILE_CART) && !isset($_SESSION["carrito"])) {
+    $file=fopen($FILE_CART,"r");//Abro el archivo en lectura
+    while($row=fgetcsv($file)){//Mientras no sea nula la fila se repite
+        $carritoItems[$row[0]]=$row[1];
+    }
+    fclose($file);
+
+    $_SESSION["carrito"]=$carritoItems;
 }
 //Estructura de Carrito:  $_SESSION["carrito"]=["NikeISPA" => 0, "ColumVit" => 0, "NikeBenJerry" => 0, "AdidasYeezy" => 0];
 
 
-if (isset($_COOKIE["productos"]) && !isset($_SESSION["carrito"])) {
-    //Cargo los productos de las cookies
-    $_SESSION["productos"]=unserialize(base64_decode($_COOKIE["productos"]));
+//Cargo productos
+if (file_exists($FILE_PRODUCTS) && !isset($_SESSION["productos"])) {
+    
+    $file=fopen($FILE_PRODUCTS,"r");//Abro el archivo en lectura
+    $key=fgetcsv($file);//Cojo la primera fila como clave
+
+    while($row=fgetcsv($file)){//Mientras no sea nula la fila se repite
+        // if(!$row[0])continue;
+        for ($i=1; $i < count($key); $i++) { 
+            $nextItem[$key[$i]]=$row[$i];
+        }
+        $result[$row[0]]=$nextItem;
+    }
+    fclose($file);
+
+    $_SESSION["productos"]=$result;
 }
 
 
-if (!isset($_SESSION["productos"])) {//Creo sesion y cockie productos
-    $_SESSION["productos"] = [
-        "NikeISPA" => ["nombre" => "Nike ISPA Overreact FK", "precio" => 180, "imagen" => "Nike-Overreact-Flyknit.png", "urlLocal"=>true],
-        "ColumVit" => ["nombre" => "Columbia Vitesse", "precio" => 120, "imagen" => "columbiaVitese.png", "urlLocal"=>true],
-        "NikeBenJerry" => ["nombre" => "Nike de Ben & Jerry's", "precio" => 100, "imagen" => "Nike-SB-Dunk-Low-Ben-Jerrys.png", "urlLocal"=>true],
-        "AdidasYeezy" => ["nombre" => "adidas Yeezy Boost 350 (Tail Light)", "precio" => 220, "imagen" => "addidasYeezi.png", "urlLocal"=>true]
-    ];
+//Si no se ha cargado los productos
+if (!file_exists($FILE_PRODUCTS) && !isset($_SESSION["productos"])) {
+    $defaultFile=file_get_contents($FILE_PRODUCTS_DEFAULT);
+    file_put_contents($FILE_PRODUCTS,$defaultFile);
 
-    setcookie("productos", base64_encode(serialize($_SESSION['productos'])), time() + 1 * 24 * 3600);
-    // header("refresh: 0");
+
+    $file=fopen($FILE_PRODUCTS,"r");//Abro el archivo en lectura
+    $key=fgetcsv($file);//Cojo la primera fila como clave
+
+    while($row=fgetcsv($file)){//Mientras no sea nula la fila se repite
+        // if(!$row[0])continue;
+        for ($i=1; $i < count($key); $i++) { 
+            $nextItem[$key[$i]]=$row[$i];
+        }
+        $result[$row[0]]=$nextItem;
+    }
+    fclose($file);
+
+    $_SESSION["productos"]=$result;
 }
+
+
 
 if (isset($_REQUEST["accion"])) {//Al pulsar un boton
     $accion=$_REQUEST["accion"];
@@ -52,7 +87,20 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
             }else{
                 $_SESSION["carrito"][$codigo]++;
             }
-            setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
+            
+            $newCarrito="";
+            $newFile=fopen($FILE_CART,"w");
+            
+            foreach ($_SESSION["carrito"] as $key => $value) {
+                $newCarrito.="\"$key\",";
+                $newCarrito.="\"$value\"";
+                $newCarrito.="\n";
+            }
+            $newCarrito=substr($newCarrito,0,-1);//Quito ultimo salto de linea
+            fwrite($newFile,"$newCarrito");
+        
+            fclose($newFile);
+
         break;
 
         // case 'eliminarUndCarrito':
@@ -67,12 +115,12 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
 
         case 'vaciarCarrito':
             // session_destroy();
-            setcookie("carrito", NULL, -1);//Elimino la cookie
+            unlink($FILE_CART);//Elimino el archivo
             unset($_SESSION["carrito"]);
         break;
 
         case 'borrarCookiesProductos':
-            setcookie("productos", NULL, -1);
+            unlink($FILE_PRODUCTS);//Elimino el archivo
             unset($_SESSION["productos"]);
             break;
 
@@ -86,8 +134,43 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
             }
 
             $_SESSION["carrito"]=$aux;
-            setcookie("carrito", base64_encode(serialize($_SESSION['carrito'])), time() + 1 * 24 * 3600);
-            setcookie("productos", base64_encode(serialize($_SESSION['productos'])), time() + 1 * 24 * 3600);
+
+            //Actualizo el fichero de carrito
+            $newCarrito="";
+            $cart_file=fopen($FILE_CART,"w");
+            
+            foreach ($_SESSION["carrito"] as $key => $value) {
+                $newCarrito.="\"$key\",";
+                $newCarrito.="\"$value\"";
+                $newCarrito.="\n";
+            }
+            $newCarrito=substr($newCarrito,0,-1);//Quito ultimo salto de linea
+            fwrite($cart_file,"$newCarrito");
+        
+            fclose($cart_file);
+
+            
+            //Actualizo el fichero de productos
+            $claves="";
+            $valores="";
+            $product_file=fopen("$FILE_PRODUCTS","w");
+    
+            foreach ($_SESSION["productos"] as $key => $value) {
+                $valores.="\"$key\",";
+                $claves="\"clave\",";
+                foreach ($value as $secondKey => $val) {
+                    $claves.="\"$secondKey\",";
+                    $valores.="\"$val\",";
+                }
+                $valores=substr($valores,0,-1);//Quito ultima coma
+                $valores.="\n";//Añado salto de linea
+            }
+            $valores=substr($valores,0,-1);//Quito ultimo salto de linea
+            $claves=substr($claves,0,-1);//Quito ultima coma
+    
+            fwrite($product_file,"$claves\n$valores");
+    
+            fclose($product_file);
             break;
     }
     // header("refresh: 0");//Preguntar a fernando porque falla al tercer añadido
@@ -114,8 +197,8 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
         <h1>Shoes Store</h1>
     </header>
     <div class="container flex">
-            <h1>Productos</h1>
-            <?php
+        <h1>Productos</h1>
+        <?php
             foreach ($_SESSION["productos"] as $codigo => $producto) {
                 if($producto["urlLocal"]){
                     $aux="imgs/";
@@ -123,7 +206,7 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
                     $aux="";
                 }
                 ?>
-                        <div class="productos">
+        <div class="productos">
 
             <a href="subSites/zapatos.php?zapato=<?=$codigo?>"><img src="<?=$aux.$producto["imagen"]; ?>" alt=""></a>
             <br>
@@ -134,11 +217,11 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
                 <input type="hidden" name="codigo" value="<?=$codigo?>">
                 <button type="submit" value="agregarCarrito" name="accion">Agregar al carrito</button>
             </form>
-            </div>
-            <?php
+        </div>
+        <?php
             }
             ?>
-    
+
         <div class="carritoIcon">
             <?php
                 $totalCarrito=0;
@@ -157,10 +240,10 @@ if (isset($_REQUEST["accion"])) {//Al pulsar un boton
         <br>
         <br>
         <div class="adminShop">
-        <button onclick="window.location.replace('subSites/adminShop.php');">Administrar Tienda</button>
+            <button onclick="window.location.replace('subSites/adminShop.php');">Administrar Tienda</button>
         </div>
     </div>
-            <!-- <?php print_r($_SESSION["carrito"]);?>
+    <!-- <?php print_r($_SESSION["carrito"]);?>
             <br><br>
             <?php print_r($_SESSION["productos"]);?>
             <br><br>

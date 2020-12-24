@@ -1,0 +1,5 @@
+"clave","nombre","precio","imagen","urlLocal"
+"NikeISPA","Nike ISPA Overreact FK",180,"Nike-Overreact-Flyknit.png","true"
+"ColumVit","Columbia Vitesse",120,"columbiaVitese.png","true"
+"NikeBenJerry","Nike de Ben & Jerry's",100,"Nike-SB-Dunk-Low-Ben-Jerrys.png","true"
+"addidasYeezi","Addidas Yezzy Bost 350",220,"addidasYeezi.png","true"
