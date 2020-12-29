@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+th {
+    background-color: darkblue;
+    color: lightblue;
+}
+
+tr:nth-of-type(odd) {
+    background-color: lightskyblue;
+}
+
+table {
+    margin:1rem 0;
+    border-collapse: collapse;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form{
+    margin:1rem 0;
+}
+
+.form select{
+    padding:.5rem;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+}
+
+.form input[type=submit]{
+    border:none;
+    background-color: lightgreen;
+    border-radius: 1rem;
+    padding: .75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 250ms;
+}
+.form input[type=submit]:hover{
+    background-color: rgb(82, 243, 82);
+    transform: scale(1.1);
+    margin:0 .5rem;
+}

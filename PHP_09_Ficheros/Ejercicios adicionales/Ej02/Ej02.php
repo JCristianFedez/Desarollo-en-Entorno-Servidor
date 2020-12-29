@@ -9,10 +9,12 @@ if(!isset($_SESSION["animales"]) && file_exists($URL_FILE)){
     $file=fopen($URL_FILE,"r");
     while(!feof($file)){
         $row=fgets($file);
-        if($row[0]!="#"){
+        if($row[0]=="#"){
+            $data=$row;
+        }else{
             $col=explode("-",$row);
-            $_SESSION["animales"][$col[0]]=["especie"=>$col[1],"edad"=>$col[2]];
-        }
+            $_SESSION["animales"][$data][]=["nombre"=>$col[0],"especie"=>$col[1],"edad"=>$col[2]];
+        }        
     }
     fclose($file);
 }
@@ -31,7 +33,22 @@ if(!isset($_SESSION["animales"]) && file_exists($URL_FILE)){
 <body>
     <div class="container">
         <h1>Veterinaria</h1>
+        <div class="form">
+            <form action="#" method="post">
+                <select name="date" id="date">
+                    <?php 
+                        foreach ($_SESSION["animales"] as $fecha => $info) {
+                            echo "<option value='$fecha'>$fecha</option>";
+                        }
+                    ?>
+                </select>
+                <input type="submit" value="Mostrar">
+            </form>
+        </div>
         <div class="table">
+        <?php 
+        if(isset($_REQUEST["date"])){
+            ?>
             <table>
                 <thead>
                     <tr>
@@ -42,23 +59,19 @@ if(!isset($_SESSION["animales"]) && file_exists($URL_FILE)){
                 </thead>
                 <tbody>
                     <?php 
-                    foreach($_SESSION["animales"] as $name => $info){
+                    foreach ($_SESSION["animales"][$_REQUEST["date"]] as $fecha => $info) {
                         echo "<tr>";
-                        echo "<td>$name</td>";
-                        foreach($info as $propiety){
-                            echo "<td>$propiety</td>";
-                        }
+                            foreach ($info as $propiety) {
+                                echo "<td>$propiety</td>";
+                            }
                         echo "</tr>";
                     }
                     ?>
                 </tbody>
             </table>
-        </div>
-        <div class="form-button">
-            <form action="subSites/addPet.php" method="post">
-                <input type="hidden" name="newPet" value="true">
-                <input type="submit" value="Añadir mascota">
-            </form>
+            <?php
+        }
+        ?>
         </div>
     </div>
 </body>

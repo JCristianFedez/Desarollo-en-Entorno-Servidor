@@ -1,32 +1,68 @@
-table,th,td{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+table,
+th,
+td {
     border: 1px solid black;
-    padding:1rem;
+    padding: 1rem;
     font-size: 1.2rem;
     text-align: center;
 }
-th{
+
+th {
     background-color: darkblue;
-    color:lightblue;
+    color: lightblue;
 }
-tr:nth-of-type(odd){
+
+tr:nth-of-type(odd) {
     background-color: lightskyblue;
 }
 
-table{
+table {
     border-collapse: collapse;
 }
 
-.container{
+.container {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.addPet{
+.form {
     margin-top: 1rem;
 }
 
-.addPet input[type=submit]{
+.form>form {
+    background-color: lightskyblue;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: stretch;
+}
+
+.form-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form input[type=text],
+.form input[type=number] {
+    border-radius: 1rem;
+    padding: .5rem;
+    font-weight: 700;
+    margin: .5rem .25rem;
+}
+
+.form input[type=submit],
+.form-button input[type=submit] {
     background-color: lightgreen;
     border-radius: 1rem;
     padding: 1rem;
@@ -37,9 +73,21 @@ table{
     transition-duration: 250ms;
 }
 
-.addPet input[type=submit]:hover{
+.form form input[type=submit]:hover,
+.form-button input[type=submit]:hover {
     background-color: rgb(82, 243, 82);
-    transform: scale(1.2);
-
+    transform: scale(1.1);
 }
 
+.form-button {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.row {
+    margin: 1rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 700px;
+    flex-flow: row wrap;
+}
