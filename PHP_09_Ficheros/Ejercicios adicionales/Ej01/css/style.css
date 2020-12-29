@@ -1,0 +1,45 @@
+table,th,td{
+    border: 1px solid black;
+    padding:1rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+th{
+    background-color: darkblue;
+    color:lightblue;
+}
+tr:nth-of-type(odd){
+    background-color: lightskyblue;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.addPet{
+    margin-top: 1rem;
+}
+
+.addPet input[type=submit]{
+    background-color: lightgreen;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 250ms;
+}
+
+.addPet input[type=submit]:hover{
+    background-color: rgb(82, 243, 82);
+    transform: scale(1.2);
+
+}
+
