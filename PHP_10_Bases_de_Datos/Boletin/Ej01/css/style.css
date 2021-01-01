@@ -49,9 +49,9 @@ table {
     background-color: lightskyblue;
 }
 
-.table table tbody tr:last-child{
+.table table tbody tr:last-child {
     background-color: initial;
-    border:none;
+    border: none;
 }
 
 .table input {
@@ -60,20 +60,26 @@ table {
     padding: 0 1rem;
 }
 
-.table a,.table .add {
+.table a,
+.add,
+.delete {
     text-decoration: none;
-    margin:.25rem;
+    margin: .25rem;
     padding: .5rem 1rem;
     border-radius: .5rem;
     color: white;
-    border:none;
+    border: none;
+    cursor: pointer;
+}
+.table .add{
+    width: 100%;
 }
 
-.table .delete {
+.delete {
     background-color: rgb(248, 68, 68);
 }
 
-.table .delete::before {
+.delete::before {
     font-family: "Font Awesome 5 Free";
     content: "\f506";
 }
@@ -87,11 +93,39 @@ table {
     content: "\f4ff";
 }
 
-.table .add {
+.add {
     background-color: rgb(79, 255, 79);
 }
 
-.table .add::before {
+.add::before {
     font-family: "Font Awesome 5 Free";
     content: "\f234";
+}
+
+.mod-form {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 auto;
+    width: 50vw;
+    justify-content: space-between;
+}
+
+.mod-form .mod-form-item {
+    flex-basis: 40%;
+    min-width: 300px;
+    padding: .5rem 0;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.mod-form-item input {
+    padding: .25rem 1rem;
+    border-radius: .5rem;
+    border: 1px solid salmon;
+}
+
+.mod-form .mod-form-button {
+    min-width: 100%;
+    text-align: center;
 }
