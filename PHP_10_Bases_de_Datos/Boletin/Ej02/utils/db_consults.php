@@ -13,8 +13,8 @@ function showAll($conexion){
 function showClient($conexion,$dni){
     return $conexion->query(
         "SELECT * FROM cliente
-        ORDER BY Nombre
-        WHERE DNI = '$dni';");
+        WHERE DNI = '$dni'
+        ORDER BY Nombre;");
 
 }
 

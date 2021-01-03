@@ -6,8 +6,12 @@ if(session_status()==PHP_SESSION_NONE){
 require_once "utils/db_conect.php";
 require_once "utils/db_consults.php";
 
+//Sirve para poder calcular cuantas paginas habran
+$CANT_CLIENTES=showAll($conexion)->rowCount();
+
 $CANT_CONSULT=10;
 
+//Cojo la pagina en la que estamos
 if(!isset($_SESSION["pagina"])){
     $pag=0;
     $_SESSION["pagina"]=$pag;
@@ -16,6 +20,8 @@ if(!isset($_SESSION["pagina"])){
     $pag=$_SESSION["pagina"];
 }
 
+
+//En caso de cambiar de pagina
 if(isset($_REQUEST["pag-action"])){
     switch($_REQUEST["pag-action"]){
         case "back":
@@ -28,13 +34,47 @@ if(isset($_REQUEST["pag-action"])){
             break;
 
         default://Se selecciona numero
-            $pag=$_REQUEST["pag-action"]*$CANT_CONSULT;
+            $pag=$_REQUEST["pag-action"];
             break;
     }
     $_SESSION["pagina"]=$pag;
 }
 
+
+//No romper en caso de que cambiemos de pagina y recargemos
+if($pag<0){
+    $pag=0;
+    $_SESSION["pagina"]=$pag;
+}elseif($pag>$CANT_CLIENTES){
+    $pag-=10;
+    $_SESSION["pagina"]=$pag;
+}
+
+
+//Sirve para cojer los clientes a mostrar en la pagina
 $consClientes=showRangeClient($conexion,$pag,($pag+$CANT_CONSULT));
+
+
+//Mostrara mensage al añadir un cliente
+$mesage="";
+if(isset($_SESSION["error"])){
+    switch($_SESSION["error"]){
+        case 0:
+            $mesage=
+            "<div class='correct-add'>
+                Cliente añadido correctamente
+            </div>";
+            break;
+        case 3:
+            $mesage=
+            "<div class='error-add'>
+                No se ha podido añadir el cliente
+            </div>";
+            break;
+    }
+}
+
+unset($_SESSION["error"]);
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +113,7 @@ $consClientes=showRangeClient($conexion,$pag,($pag+$CANT_CONSULT));
                         <td><?=$cliente->Nombre;?></td>
                         <td><?=$cliente->Direccion;?></td>
                         <td><?=$cliente->Telefono;?></td>
-                        <td><a href="utils/action.php?action=delete&dni=<?=$cliente->DNI?>" class="fa icon delete">Borrar</a></td>
+                        <td><a href="utils/action.php?action=delete&dni=<?=$cliente->DNI?>" class="fa icon delete" onclick="return confirm('Estas seguro de eliminar a <?=$cliente->Nombre;?>?')">Borrar</a></td>
                         <td><a href="utils/modClient.php?dni=<?=$cliente->DNI?>" class="fa icon edit">Moditificar</a></td>
                     </tr>
                     <?php
@@ -93,13 +133,23 @@ $consClientes=showRangeClient($conexion,$pag,($pag+$CANT_CONSULT));
             </table>
             <div class="pag-select">
                 <form action="#" method="post">
-                <button type="submit" name="pag-action" value="back" class="pag-back">Back</button>
-                <button type="submit" name="pag-action" value="" class="pag-number"></button>
-                <button type="submit" name="pag-action" value="next" class="pag-next">Next</button>
+                <?php 
+                    if($pag>0){
+                        echo '<button type="submit" name="pag-action" value="back" class="fa icon pag-button pag-back"></button>';
+                    }
+
+                    for ($i=0; $i < $CANT_CLIENTES; $i+=$CANT_CONSULT) { 
+                        echo '<button type="submit" name="pag-action" value="'.$i.'" class="pag-button pag-number">'.($i/$CANT_CONSULT).'</button>';
+                    }
+
+                    if(($pag*10)<$CANT_CLIENTES){
+                        echo '<button type="submit" name="pag-action" value="next" class="fa icon pag-button pag-next"></button>';
+                    }
+                ?>
                 </form>
             </div>
         </div>
+        <?=$mesage?>
     </div>
 </body>
-
 </html>
