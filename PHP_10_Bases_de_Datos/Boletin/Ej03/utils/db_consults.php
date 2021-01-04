@@ -46,13 +46,13 @@ function selectCarritoProd($conexion,$claveProd){
 }
 
 function addToCarrito($conexion,$claveProd,$cantAdd){
+    //Si ya esta en carrito le sumo 1
     if($cantAux=selectCarritoProd($conexion,$claveProd)->fetchObject()->cant){
         $cantAux++;
         $conexion->query("UPDATE carrito SET cant=$cantAux
         WHERE carrito.clave_prod='$claveProd'");
 
     }else{
-        print_r($cantAdd);
         $conexion->query("INSERT INTO carrito (clave_prod,cant) 
         VALUES ('$claveProd',$cantAdd)");
     }
