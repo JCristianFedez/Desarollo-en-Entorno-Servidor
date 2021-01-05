@@ -1,37 +1,9 @@
 <?php 
-if(session_status() == PHP_SESSION_NONE){
-    session_start();
-}
+require_once "../utils/db_connect.php";
+require_once "../utils/db_consults.php";
 
-if(isset($_REQUEST["accion"])){
-    if($_REQUEST["accion"]=="agregarProducto"){
-        if(isset($_REQUEST["urlLocal"])){
-            $aux=true;
-        }else{
-            $aux=false;
-        }
-        $_SESSION["productos"][$_REQUEST["codigo"]]=[
-            "nombre"=>$_REQUEST["nombre"],
-            "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"],
-            "urlLocal"=>$aux];
-    }
+$allProducts=showAllProducts($conexion);
 
-    if($_REQUEST["accion"] == "modificarProducto"){
-        $_SESSION["productos"][$_REQUEST["codigo"]]=[
-            "nombre"=>$_REQUEST["nombre"],
-            "precio"=>$_REQUEST["precio"],
-            "imagen"=>$_REQUEST["imagen"],
-            "urlLocal"=>$aux];
-    }
-
-    if($_REQUEST["accion"] == "eliminarProducto"){
-        unset($_SESSION["productos"][$_REQUEST["codigo"]]);
-        setcookie("productos", base64_encode(serialize($_SESSION['productos'])), time() + 1 * 24 * 3600);
-    }
-}
-
-$productos=$_SESSION["productos"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,38 +21,38 @@ $productos=$_SESSION["productos"];
     </header>
     <div class="container flex">
         <?php 
-            foreach ($productos as $codigo => $producto) {
-                if($producto["urlLocal"]){
+            while($producto= $allProducts->fetchObject()):
+                if($producto->url_local){
                     $aux="../imgs/";
                 }else{
                     $aux="";
                 }
                     ?>
-        <div class="productos">
-            <img src="<?=$aux.$producto["imagen"]; ?>" alt="">
-            <br>
-            <?=$producto["nombre"]?>
-            <br>
-            Precio: <?=$producto["precio"]?>€
-            <form action="#" method="post">
-                <input type="hidden" name="codigo" value="<?=$codigo?>">
-                <input type="submit" name="accion" value="eliminarProducto">
-            </form>
-            <form action="modificarProducto.php" method="post">
-                <input type="hidden" name="codigo" value="<?=$codigo?>">
-                <input type="submit" name="accion" value="modificarProducto">
-            </form>
-        </div>
+                <div class="productos">
+                    <img src="<?=$aux.$producto->imagen;?>" alt="">
+                    <br>
+                    <?=$producto->nombre?>
+                    <br>
+                    Precio: <?=$producto->precio?>€
+                    <form action="../utils/db_actions.php" method="post">
+                        <input type="hidden" name="returnTo" value="subSites/adminShop.php">
+                        <input type="hidden" name="codigo" value="<?=$producto->clave?>">
+                        <input type="submit" name="accion" value="eliminarProducto">
+                    </form>
+                    <form action="modificarProducto.php" method="post">
+                        <input type="hidden" name="codigo" value="<?=$producto->clave?>">
+                        <input type="submit" name="accion" value="modificarProducto">
+                    </form>
+                </div>
         <?php
-            }
+            endwhile;
         ?>
         <div class="adminShop">
             <form action="agregarProducto.php" method="post">
                 <input type="submit" value="Añadir nuevo producto">
             </form>
             <form action="../Ej03.php" method="post">
-                <input type="hidden" name="accion" value="borrarCookiesProductos">
-                <input type="submit" value="Restablecer Productos">
+                <input type="submit" value="Volver">
             </form>
 
             <form action="../Ej03.php" method="post">
@@ -90,7 +62,6 @@ $productos=$_SESSION["productos"];
         </div>
 
     </div>
-    <!-- <?php print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?> -->
 
 </body>
 

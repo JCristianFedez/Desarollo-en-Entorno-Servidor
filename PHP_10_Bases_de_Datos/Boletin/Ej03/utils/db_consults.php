@@ -1,4 +1,5 @@
 <?php 
+
 /**
  * SELECT * FROM productos ORDER BY nombre
  */
@@ -28,12 +29,40 @@ function deleteCarrito($conexion){
 }
 
 /**
+ * Elimina $cant cantidad de unidades, si 
+ * no se establece nada se elimina el producto
+ */
+function deleteProdCarrito($conexion,$claveProd,$cantDelete=0){
+    $prodAux=selectCarritoProd($conexion,$claveProd)->fetchObject()->cant;
+
+    if(($prodAux-$cantDelete>0)&&($cantDelete>0)){
+        $conexion->query("UPDATE carrito
+        SET cant=".$prodAux-$cantDelete."
+        WHERE clave_prod='$claveProd'");
+
+    }elseif(($prodAux-$cantDelete<=0)||($cantDelete<=0)){
+        $conexion->query("DELETE FROM carrito
+                        WHERE clave_prod='$claveProd'");
+    }
+
+}
+
+/**
  * SELECT * FROM productos  
  * WHERE clave='$claveProd'
  */
 function selectProd($conexion,$claveProd){
     return $conexion->query("SELECT * FROM productos 
     WHERE clave='$claveProd'");
+}
+
+/**
+ * ELimina producto si existe
+ */
+function deleteProd($conexino,$claveProd){
+    $conexino->query("DELETE FROM productos
+                    WHERE clave='$claveProd'
+                    AND EXISTS(SELECT 1 FROM productos WHERE clave ='$claveProd' LIMIT 1)");
 }
 
 /**

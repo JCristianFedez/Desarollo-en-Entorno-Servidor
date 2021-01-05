@@ -10,10 +10,6 @@ completar el ejercicio guardando la cesta de la
 compra en una cookie, de manera que se pueda retomar
 la compra aunque se cierre el navegador. (Ejercicio completo)  -->
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once "utils/db_connect.php";
 require_once "utils/db_consults.php";
 
@@ -54,7 +50,7 @@ if(!$cantProdCarrito) $cantProdCarrito=0;
         <div class="productos">
             <?php 
             ?>
-            <a href="subSites/zapatos.php?zapato=<?=$producto->clave?>"><img src="<?=$aux.$producto->imagen; ?>"
+            <a href="subSites/prodInfo.php?codProducto=<?=$producto->clave?>"><img src="<?=$aux.$producto->imagen; ?>"
                     alt=""></a>
             <br>
             <?=$producto->nombre?>
