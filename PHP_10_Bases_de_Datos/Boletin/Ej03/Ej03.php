@@ -52,10 +52,8 @@ if(!$cantProdCarrito) $cantProdCarrito=0;
             ?>
             <a href="subSites/prodInfo.php?codProducto=<?=$producto->clave?>"><img src="<?=$aux.$producto->imagen; ?>"
                     alt=""></a>
-            <br>
-            <?=$producto->nombre?>
-            <br>
-            Precio: <?=$producto->precio?>€
+            <p><?=$producto->nombre?></p>
+            <p>Precio: <?=$producto->precio?>€</p>
             <form action="utils/db_actions.php" method="post">
                 <input type="hidden" name="codigo" value="<?=$producto->clave?>">
                 <button type="submit" value="agregarCarrito" name="accion">Agregar al carrito</button>

@@ -57,12 +57,9 @@ $allCarrito=loadCarrito($conexion);
                     $totalCarrito+=$prod->precio*$carritoProd->cant; ?>
                     <div class="productos">
                         <a href="prodInfo.php?codProducto=<?=$prod->clave?>"><img src="<?=$aux.$prod->imagen;?>" alt=""></a>
-                        <br>
-                        <?=$prod->nombre;?>
-                        <br>
-                        Precio: <?=$prod->precio; ?>€
-                        <br>
-                        Unidades: <?=$carritoProd->cant; ?>
+                        <p><?=$prod->nombre;?></p>
+                        <p>Precio: <?=$prod->precio; ?>€</p>
+                        <p>Unidades: <?=$carritoProd->cant; ?></p>
                         <form action="../utils/db_actions.php" method="post">
                             <input type="hidden" name="returnTo" value="subSites/carrito.php">
                             <input type="hidden" name="codigo" value="<?=$prod->clave?>">

@@ -11,7 +11,25 @@ switch($_REQUEST["accion"]){
     case "agregarCarrito":
         addToCarrito($conexion,$_REQUEST["codigo"],1);
         break;
-        
+
+    case "agregarProducto":
+        $urlLocal=(isset($_REQUEST["urlLocal"]))?1:0;
+        addProductShop(
+            $conexion,$_REQUEST["codigo"],
+            $_REQUEST["nombre"],$_REQUEST["precio"],
+            $_REQUEST["imagen"],$urlLocal
+        );
+        break;
+
+        case "modificarProducto":
+            $urlLocal=(isset($_REQUEST["urlLocal"]))?1:0;
+            modProductShop(
+                $conexion,$_REQUEST["codigo"],
+                $_REQUEST["nombre"],$_REQUEST["precio"],
+                $_REQUEST["imagen"],$urlLocal
+            );
+            break;
+
     case "eliminarUndCarrito":
         deleteProdCarrito($conexion,$_REQUEST["codigo"],1);
         break;

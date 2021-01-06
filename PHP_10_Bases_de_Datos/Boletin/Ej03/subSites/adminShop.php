@@ -30,10 +30,8 @@ $allProducts=showAllProducts($conexion);
                     ?>
                 <div class="productos">
                     <img src="<?=$aux.$producto->imagen;?>" alt="">
-                    <br>
-                    <?=$producto->nombre?>
-                    <br>
-                    Precio: <?=$producto->precio?>€
+                    <p><?=$producto->nombre?></p>
+                    <p>Precio: <?=$producto->precio?>€</p>
                     <form action="../utils/db_actions.php" method="post">
                         <input type="hidden" name="returnTo" value="subSites/adminShop.php">
                         <input type="hidden" name="codigo" value="<?=$producto->clave?>">
@@ -53,11 +51,6 @@ $allProducts=showAllProducts($conexion);
             </form>
             <form action="../Ej03.php" method="post">
                 <input type="submit" value="Volver">
-            </form>
-
-            <form action="../Ej03.php" method="post">
-                <input type="hidden" name="accion" value="actualizarCookiesProductos">
-                <input type="submit" value="Guardar cambios">
             </form>
         </div>
 

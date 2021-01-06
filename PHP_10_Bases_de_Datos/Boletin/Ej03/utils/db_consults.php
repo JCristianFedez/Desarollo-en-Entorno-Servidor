@@ -87,4 +87,24 @@ function addToCarrito($conexion,$claveProd,$cantAdd){
     }
 
 }
+
+/**
+ * INSERT INTO productos (clave,nombre,precio,imagen,url_local) 
+ * VALUES ($claveProd,$nombre,$precio,$imagen,$urlLocal
+ */
+function addProductShop($conexion,$claveProd,$nombre,$precio,$imagen,$urlLocal){
+    $conexion->query("INSERT INTO productos (clave,nombre,precio,imagen,url_local)
+                    VALUES ('$claveProd','$nombre',$precio,'$imagen',$urlLocal)");
+}
+
+/**
+ * UPDATE productos 
+ * SET nombre='$nombre',precio=$precio,imagen='$imagen',url_local=$urlLocal
+ * WHERE clave='$claveProd'
+ */
+function modProductShop($conexion,$claveProd,$nombre,$precio,$imagen,$urlLocal){
+    $conexion->query("UPDATE productos 
+                    SET nombre='$nombre',precio=$precio,imagen='$imagen',url_local=$urlLocal
+                    WHERE clave='$claveProd'");
+}
 ?>

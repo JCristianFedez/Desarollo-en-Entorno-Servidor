@@ -1,10 +1,10 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-$codigo=$_REQUEST["codigo"];
-$prodAModificar = $_SESSION["productos"][$codigo];
-if($prodAModificar["urlLocal"]){
+require_once "../utils/db_connect.php";
+require_once "../utils/db_consults.php";
+
+$prodAModificar=selectProd($conexion,$_REQUEST["codigo"])->fetchObject();
+
+if($prodAModificar->url_local == 1){
     $check="checked";
 }else{
     $check="";
@@ -27,23 +27,24 @@ if($prodAModificar["urlLocal"]){
     <div class="container flex">
         <h1>Modificar Producto</h1>
         <div class="addModProducto">
-            <form action="adminShop.php" method="post">
+            <form action="../utils/db_actions.php" method="post">
+                <input type="hidden" name="returnTo" value="subSites/adminShop.php">
                 <label for="codigo">Codigo:
-                    <input type="text" name="codigo" id="codigo" value="<?=$codigo?>" readonly="readonly">
+                    <input type="text" name="codigo" id="codigo" required readonly value="<?=$prodAModificar->clave?>">
                 </label>
                 <br>
-                <?php
-                foreach ($prodAModificar as $clave => $prop) {
-                    if ($clave!="urlLocal") {
-                        ?>
-                <label for="<?=$clave?>"><?=ucfirst($clave)?>:
-                    <input type="text" name="<?=$clave?>" id="<?=$clave?>" value="<?=$prop?>" required>
+                <label for="nombre">Nombre:
+                    <input type="text" name="nombre" id="nombre" required value="<?=$prodAModificar->nombre?>">
                 </label>
                 <br>
-                <?php
-                    }
-                }
-            ?>
+                <label for="precio">Precio:
+                    <input type="number" name="precio" id="precio" step=".01" required value="<?=$prodAModificar->precio?>">
+                </label>
+                <br>
+                <label for="imagen">Imagen:
+                    <input type="text" name="imagen" id="imagen" required value="<?=$prodAModificar->imagen?>">
+                </label>
+                <br>
                 <label for="urlLocal">La imagen es Local
                     <input type="checkbox" name="urlLocal" id="urlLocal" <?=$check?>></label>
                 <br>

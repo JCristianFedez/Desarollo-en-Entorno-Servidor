@@ -22,9 +22,10 @@ require_once "../utils/db_consults.php";
     <div class="container flex">
         <h1>Añadir Producto</h1>
         <div class="addModProducto">
-            <form action="adminShop.php" method="post">
-                <label for="clave">Clave:
-                    <input type="text" name="clave" id="clave" required>
+            <form action="../utils/db_actions.php" method="post">
+                <input type="hidden" name="returnTo" value="subSites/adminShop.php">
+                <label for="codigo">Codigo:
+                    <input type="text" name="codigo" id="codigo" required>
                 </label>
                 <br>
                 <label for="nombre">Nombre:
