@@ -23,7 +23,13 @@ header("Location:../Ej01.php");
             case "save":
                 $file=fopen($URL_FILE,"a");
 
-                fwrite($file,PHP_EOL.date("#d-m-Y#"));
+                $fecha=date("#d-m-Y#");
+
+                //Si no se encuentra la fecha se introduce
+                $lineasAux=file($URL_FILE);
+                if(!in_array($fecha.PHP_EOL,$lineasAux)){
+                    fwrite($file,PHP_EOL.$fecha);
+                }
 
                 foreach($_SESSION["newAnimals"] as $name => $info){
                     $row=$name;
