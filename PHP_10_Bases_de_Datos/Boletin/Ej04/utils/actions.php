@@ -1,4 +1,5 @@
 <?php 
+//TODO: entrada salida producto
 if(session_status()==PHP_SESSION_NONE){
     session_start();
 }
