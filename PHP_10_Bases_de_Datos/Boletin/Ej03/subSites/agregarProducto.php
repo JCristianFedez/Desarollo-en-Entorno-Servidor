@@ -53,3 +53,7 @@ require_once "../utils/db_consults.php";
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

@@ -52,3 +52,7 @@ if(isset($_REQUEST["dni"])){
         </form>
 </body>
 </html>
+
+<?php 
+$conexion=null;
+?>

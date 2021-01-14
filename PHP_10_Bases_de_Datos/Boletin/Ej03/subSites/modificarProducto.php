@@ -58,3 +58,7 @@ if($prodAModificar->url_local == 1){
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

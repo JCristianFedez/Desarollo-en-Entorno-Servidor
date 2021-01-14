@@ -153,3 +153,7 @@ unset($_SESSION["error"]);
     </div>
 </body>
 </html>
+
+<?php 
+$conexion=null;
+?>

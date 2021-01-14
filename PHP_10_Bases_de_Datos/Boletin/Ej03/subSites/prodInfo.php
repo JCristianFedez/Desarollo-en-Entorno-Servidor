@@ -45,3 +45,7 @@ if($producto->url_local){
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

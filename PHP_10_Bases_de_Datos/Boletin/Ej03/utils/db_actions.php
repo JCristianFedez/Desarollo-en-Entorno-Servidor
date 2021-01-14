@@ -42,6 +42,8 @@ switch($_REQUEST["accion"]){
         break;
 }
 
+$conexion=null;
+
 if(isset($_REQUEST["returnTo"])){
     header("Location: ../".$_REQUEST["returnTo"]);
 }else{
@@ -49,3 +51,4 @@ if(isset($_REQUEST["returnTo"])){
 }
 
 ?>
+

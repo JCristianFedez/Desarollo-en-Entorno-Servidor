@@ -20,6 +20,8 @@ if(isset($_REQUEST["action"])){
             break;
     }
 }
+$conexion=null;
+
 header("Location:../Ej01.php");
 
 ?>

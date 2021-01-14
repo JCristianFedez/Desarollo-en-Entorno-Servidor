@@ -94,3 +94,7 @@ $allCarrito=loadCarrito($conexion);
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

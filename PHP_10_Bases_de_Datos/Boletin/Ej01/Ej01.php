@@ -64,3 +64,7 @@ $fullConsulta=showALL($conexion);
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

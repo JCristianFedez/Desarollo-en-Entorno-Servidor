@@ -79,3 +79,7 @@ if(!$cantProdCarrito) $cantProdCarrito=0;
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>

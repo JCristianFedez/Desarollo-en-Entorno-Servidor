@@ -59,3 +59,7 @@ $allProducts=showAllProducts($conexion);
 </body>
 
 </html>
+
+<?php 
+$conexion=null;
+?>
