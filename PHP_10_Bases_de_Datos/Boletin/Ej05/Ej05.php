@@ -1,4 +1,5 @@
 <?php 
+//TODO: Poner bonita la pagina de compra y ticket
 if(session_status()==PHP_SESSION_NONE){
     session_start();
 }
@@ -98,6 +99,9 @@ require_once "utils/errorMesages.php";
             </div>
         </div>
         <?=$mesage?>
+    </div>
+    <div class="buy-container">
+    <a href="subSites/compra.php" class="buy">Comprar</a>
     </div>
 </body>
 </html>

@@ -52,7 +52,7 @@ if($pag<0){
 
 
 //Sirve para cojer los clientes a mostrar en la pagina
-$consClientes=showRangeClient($conexion,$pag,($pag+$CANT_CONSULT));
+$consClientes=showRangeClient($conexion,$pag,$CANT_CONSULT);
 
 
 //Mostrara mensage al añadir un cliente

@@ -93,8 +93,11 @@ function saleProducto($conexion,$codigo,$cant=1){
         $cantStock-=$cant;
         $querry="UPDATE producto SET stock=$cantStock WHERE codigo='$codigo';";
         $conexion->exec($querry);
+        return 0;
     }else{
-        return false;
+        $querry="UPDATE producto SET stock=0 WHERE codigo='$codigo';";
+        $conexion->exec($querry);
+        return $cantStock;
     }
 
 }
