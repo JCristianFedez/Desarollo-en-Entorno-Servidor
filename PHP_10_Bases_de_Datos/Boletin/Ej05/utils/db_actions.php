@@ -43,7 +43,7 @@ if(isset($_REQUEST["action"])){
 
             for ($i=0; $i < count($codigos); $i++) { 
                 $aux=saleProducto($conexion,$codigos[$i],$cantidades[$i]);
-                if($aux>0){
+                if(!$aux){
                     $_SESSION["StockInsuficiente"][$codigos[$i]]="No teniamos suficiente Stock de este producto, le hemos vendido todas las unidades restantes";
                     $cantidades[$i]=$aux;
                 }

@@ -89,11 +89,11 @@ function entradaProduct($conexion,$codigo,$cant=1){
  */
 function saleProducto($conexion,$codigo,$cant=1){
     $cantStock = selectProd($conexion,$codigo)->fetchObject()->stock;
-    if($cantStock-$cant >= 0){
+    if($cantStock>=$cant){
         $cantStock-=$cant;
         $querry="UPDATE producto SET stock=$cantStock WHERE codigo='$codigo';";
         $conexion->exec($querry);
-        return 0;
+        return true;
     }else{
         $querry="UPDATE producto SET stock=0 WHERE codigo='$codigo';";
         $conexion->exec($querry);

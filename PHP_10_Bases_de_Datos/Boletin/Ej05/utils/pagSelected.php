@@ -39,4 +39,5 @@ if($pag<0){
     $_SESSION["pagina"]=$pag;
 }
 
-$productsList=showRangProducts($conexion,$pag,$PORDUCTOS_POR_PAGINA); ?>
+$productsList=showRangProducts($conexion,$pag,$PORDUCTOS_POR_PAGINA); 
+$conexion=null;?>
