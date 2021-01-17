@@ -1,5 +1,4 @@
 <?php 
-//TODO: Poner bonita la pagina de compra y ticket
 if(session_status()==PHP_SESSION_NONE){
     session_start();
 }
