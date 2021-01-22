@@ -1,5 +1,5 @@
 <?php 
-include_once "objetos/DadoPoker.php";
+include_once "objetos/Ej03.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
