@@ -1,16 +1,21 @@
 <?php 
 
-class Vehiculo {
+abstract class Vehiculo {
 
     private static $kmTotales = 0;
     private static $cantVehiculos = 0;
     private $marca;
-    private $kilometros;
+    private $kmRecorridos;
 
     public function __construct($marca){
         $this->marca=(isset($marca))?$marca:"Seat";
-        $this->kilometros = 0;
-        $cantVehiculos++;
+        $this->kmRecorridos = 0;
+        Vehiculo::$cantVehiculos++;
+    }
+
+    public function recorre($km) {
+        $this->kmRecorridos += $km;
+        Vehiculo::$kmTotales += $km;
     }
 
     public function getVehiculosCreados(){
@@ -24,12 +29,10 @@ class Vehiculo {
     public function getKmRecorridos() {
         return $this->kmRecorridos;
     }
-    
-    public function recorre($km) {
-        $this->kmRecorridos += $km;
-        Vehiculo::$kmTotales += $km;
-    }
 
+    public function getMarca(){
+        return $this->marca;
+    }
 }
 
 ?>

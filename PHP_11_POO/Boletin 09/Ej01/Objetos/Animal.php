@@ -1,5 +1,5 @@
 <?php 
-class Animal {
+abstract class Animal {
     private $sexo;
 
     public function __construct($s){

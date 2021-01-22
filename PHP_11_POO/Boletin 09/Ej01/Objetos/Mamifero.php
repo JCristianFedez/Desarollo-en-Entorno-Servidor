@@ -1,7 +1,7 @@
 <?php 
 include_once "Animal.php";
 
-class Mamifero extends Animal{
+abstract class Mamifero extends Animal{
 
     public function __construct($s){
         parent::__construct($s);

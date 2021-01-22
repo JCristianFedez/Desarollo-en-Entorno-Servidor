@@ -44,11 +44,11 @@ $precioTotal=0;
                     <td><?=$producto[$codigos[$i]]["descripcion"]?></td>
                     <td><?=$producto[$codigos[$i]]["precio_venta"]?></td>
                     <td><?=$cantidades[$i]?></td>
-                    <td><?=$producto[$codigos[$i]]["precio_venta"]*$cantidades[$i]?></td>
+                    <td><?=($producto[$codigos[$i]]["precio_venta"]*$cantidades[$i])*1.21?></td>
                     <?php if(isset($_SESSION["StockInsuficiente"][$codigos[$i]])):?>
                         <td class="error-stock"><?=$_SESSION["StockInsuficiente"][$codigos[$i]]?></td>
                     <?php endif; ?>
-                    <?php $precioTotal+=$producto[$codigos[$i]]["precio_venta"]*$cantidades[$i] ?>
+                    <?php $precioTotal+=($producto[$codigos[$i]]["precio_venta"]*$cantidades[$i])*1.21 ?>
                 </tr>
                 <?php endfor; ?>
                 <tr class="total-pagar">
