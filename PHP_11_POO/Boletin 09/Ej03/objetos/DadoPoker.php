@@ -10,7 +10,7 @@ class DadoPoker {
 
     public function tira(){
         DadoPoker::$tiradasTotales++;
-        $figura = self::FIGURAS[rand(0,count(self::FIGURAS)-1)];
+        $figura = DadoPoker::FIGURAS[rand(0,count(self::FIGURAS)-1)];
         $this->ultimaFigura = $figura;
         return $figura;
     }
@@ -19,7 +19,11 @@ class DadoPoker {
         return $this->ultimaFigura;
     }
 
-    public function getTiradasTotales(){
+    static function setTiradasTotales($cant){
+        DadoPoker::$tiradasTotales = $cant;
+    }
+
+    static function getTiradasTotales(){
         return DadoPoker::$tiradasTotales;
     }
 }

@@ -1,0 +1,32 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+h1{
+    text-align: center;
+}
+.container{
+    margin: 2rem auto;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 200px;
+}
+
+.all-form{
+    text-align: center;
+}
+
+.form-item{
+    margin-top: 1rem;
+}
+
+.error{
+    text-align: center;
+    color: darkred;
+    padding: 2rem;
+    border: 1px solid darkred;
+    background-color: lightpink;
+    border-radius: 1rem;
+}

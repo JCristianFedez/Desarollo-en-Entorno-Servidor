@@ -18,11 +18,11 @@ abstract class Vehiculo {
         Vehiculo::$kmTotales += $km;
     }
 
-    public function getVehiculosCreados(){
+    public static function getVehiculosCreados(){
         return Vehiculo::$cantVehiculos;
     }
 
-    public function getKmTotales(){
+    public static function getKmTotales(){
         return Vehiculo::$kmTotales;
     }
 
