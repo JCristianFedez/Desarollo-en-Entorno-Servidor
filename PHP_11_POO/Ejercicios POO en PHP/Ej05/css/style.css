@@ -1,0 +1,38 @@
+*, *::before, *::after{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+h1{
+    text-align: center;
+    margin: 2rem 0;
+}
+img{
+    width: 75px;
+    display: block;
+    margin: 0 auto;
+}
+
+.container-bombilla{
+    margin: 1rem 1rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-rows: repeat(auto-fit, 1fr);
+}
+
+.item-bombilla{
+    border:1px solid lightgray;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.forms{
+    margin: 0 auto;
+    width: 500px;
+    text-align: center;
+}
+.forms form{
+    margin:1rem 0;
+}
