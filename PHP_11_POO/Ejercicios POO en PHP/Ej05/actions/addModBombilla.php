@@ -1,5 +1,6 @@
 <?php 
 $urlReturn = "../Ej05.php";
+require_once "../objetos/Bombilla.php";
 
 if(isset($_REQUEST["ubicacion"]) && isset($_REQUEST["potencia"])){
     if(session_status() == PHP_SESSION_NONE){
