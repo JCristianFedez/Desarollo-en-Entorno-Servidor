@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2021 a las 16:22:31
+-- Tiempo de generación: 27-01-2021 a las 17:13:17
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -31,17 +31,8 @@ USE `tienda-objetos`;
 
 CREATE TABLE `carrito` (
   `clave_prod` varchar(20) NOT NULL,
-  `cant` int(11) NOT NULL
+  `cant` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `carrito`
---
-
-INSERT INTO `carrito` (`clave_prod`, `cant`) VALUES
-('nikeBenJerry', 1),
-('nikeInterFlag', 1),
-('tvSamsung', 2);
 
 -- --------------------------------------------------------
 
@@ -54,19 +45,21 @@ CREATE TABLE `productos` (
   `nombre` varchar(60) NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `imagen` varchar(200) NOT NULL,
-  `url_local` tinyint(1) NOT NULL
+  `url_local` tinyint(1) NOT NULL,
+  `stock` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`clave`, `nombre`, `precio`, `imagen`, `url_local`) VALUES
-('addidasYeezi', 'Addidas Yezzy Bost 350', '220.00', 'addidasYeezi.png', 1),
-('nikeBenJerry', 'Nike de Ben & Jerry\'s', '100.00', 'Nike-SB-Dunk-Low-Ben-Jerrys.png', 1),
-('nikeInterFlag', 'Nike International Flag', '256.20', 'https://image.goat.com/crop/750/attachments/product_template_pictures/images/012/824/237/original/382044_00.png.png', 0),
-('nikeISPA', 'Nike ISPA Overreact FK', '180.20', 'Nike-Overreact-Flyknit.png', 1),
-('tvSamsung', 'Televisor Samsung 40 Pulgadas', '320.50', 'https://www.giztele.com/wp-content/uploads/2018/10/televisores-4K-baratosp-e1540283138792-1024x768.png', 0);
+INSERT INTO `productos` (`clave`, `nombre`, `precio`, `imagen`, `url_local`, `stock`) VALUES
+('babyYoda', 'Baby Yoda', '123349.99', 'babyYoda.png', 1, 1),
+('dobleElefanteTelepat', 'Doble Elefante Telepata de Guerra', '1724.00', 'dobleElefanteTelepataDeGuerra.png', 1, 1),
+('nikeBenAndJerrys', 'Nike SB Drunk Low Ben Jerrys', '123.20', 'Nike-SB-Dunk-Low-Ben-Jerrys.png', 1, 3),
+('nikeInterFlag', 'Nike International Flag', '256.20', 'https://image.goat.com/crop/750/attachments/product_template_pictures/images/012/824/237/original/382044_00.png.png', 0, 1),
+('nikeISPA', 'Nike ISPA Overreact FK', '180.20', 'Nike-Overreact-Flyknit.png', 1, 13),
+('tvSamsung', 'Televisor Samsung 40 Pulgadas', '320.50', 'https://www.giztele.com/wp-content/uploads/2018/10/televisores-4K-baratosp-e1540283138792-1024x768.png', 0, 14);
 
 --
 -- Índices para tablas volcadas
