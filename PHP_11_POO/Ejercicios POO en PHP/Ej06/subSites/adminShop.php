@@ -35,6 +35,7 @@ $productos = unserialize($_SESSION["productos"]);
                     <img src="<?=$aux.$prodUnd->getImagen();?>" alt="">
                     <p><?=$prodUnd->getNombre()?></p>
                     <p>Precio: <?=$prodUnd->getPrecio()?>€</p>
+                    <p>Stock: <?=$prodUnd->getStock()?> Unds</p>
                     <form action="../utils/db_actions.php" method="post">
                         <input type="hidden" name="returnTo" value="subSites/adminShop.php">
                         <input type="hidden" name="codigo" value="<?=$prodUnd->getClave()?>">

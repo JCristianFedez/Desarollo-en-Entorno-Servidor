@@ -40,13 +40,18 @@ switch($_REQUEST["accion"]){
             break;
 
     case "eliminarUndCarrito":
+        addStock($conexion,$_REQUEST["codigo"],1);
         deleteProdCarrito($conexion,$_REQUEST["codigo"],1);
         break;
         
     case "eliminarProductoCarrito":
+        $prodCarrito = selectCarritoProd($conexion,$_REQUEST["codigo"])->fetchObject();
+        addStock($conexion,$_REQUEST["codigo"],$prodCarrito->cant);
         deleteProdCarrito($conexion,$_REQUEST["codigo"]);
         break;
+
     case "eliminarProducto":
+        deleteProdCarrito($conexion,$_REQUEST["codigo"]);
         deleteProd($conexion,$_REQUEST["codigo"]);
         break;
 }
