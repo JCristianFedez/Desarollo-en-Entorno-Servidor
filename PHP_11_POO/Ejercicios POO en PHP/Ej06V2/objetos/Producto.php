@@ -14,9 +14,9 @@ class Producto {
         $this->clave = $clave;
         $this->nombre = $nombre;
         $this->precio = $precio;
-        $this->stock = $stock;
         $this->imagen = $imagen;
         $this->url_local = $url_local;
+        $this->stock = $stock;
     }
 
     public function insert(){
@@ -33,7 +33,7 @@ class Producto {
     }
 
     public static function getProductos(){
-        $conexion = TiendaDB::connectDB;
+        $conexion = TiendaDB::connectDB();
         $seleccion = "SELECT clave, nombre, precio, stock, imagen, url_local
         FROM productos";
         $consulta = $conexion->query($seleccion);
@@ -47,10 +47,11 @@ class Producto {
                 $prod->url_local,$prod->stock
             );
         }
+        return $productos;
     }
 
     public static function getProductoByClave($clave){
-        $conexion = TiendaDB::connectDB;
+        $conexion = TiendaDB::connectDB();
         $seleccion = "SELECT clave, nombre, precio, stock, imagen, url_local
         FROM productos
         WHERE clave='$clave'";
@@ -63,7 +64,7 @@ class Producto {
             $registro->url_local,$registro->stock
         );
 
-        return $productos;
+        return $producto;
     }
 
     public function reponer($cant){

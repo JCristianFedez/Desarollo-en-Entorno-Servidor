@@ -10,20 +10,20 @@ completar el ejercicio guardando la cesta de la
 compra en una cookie, de manera que se pueda retomar
 la compra aunque se cierre el navegador. (Ejercicio completo)  -->
 <?php
+
+//TODO: Quitar consultas y añadir con objetos
 if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
-require_once "utils/db_connect.php";
-require_once "utils/db_consults.php";
-include_once "objetos/Producto.php";
 
-$allProducts=showAllProducts($conexion);
-$carrito=loadCarrito($conexion);
-$cantProdCarrito=cantProdCarrito($conexion)->fetchObject()->cantidad;
+include_once "objetos/Producto.php";
+include_once "objetos/Carrito.php";
+
+$allProducts=Producto::getProductos();
+$cantProdCarrito=Carrito::getCantTotal();
 
 if(!$cantProdCarrito) $cantProdCarrito=0;
 
-require_once "utils/db_to_object.php";
 
 ?>
 
@@ -45,7 +45,7 @@ require_once "utils/db_to_object.php";
     <div class="container flex">
         <h1>Productos</h1>
         <?php
-        foreach($productos as $codigo => $prodUnd):
+        foreach($allProducts as $codigo => $prodUnd):
             if($prodUnd->getUrl_local()){
                 $aux="imgs/";
             }else{
@@ -68,7 +68,7 @@ require_once "utils/db_to_object.php";
         <?php endforeach;?>
 
         <div class="carritoIcon">
-            <a href="subSites/carrito.php"><i class="fas fa-shopping-cart"></i>Cant: <?=$cantProdCarrito?></a>
+            <a href="subSites/carrito.php"><i class="fas fa-shopping-cart"></i>Cant: <?= $cantProdCarrito?></a>
             <form action="utils/db_actions.php" method="post">
                 <button type="submit" value="vaciarCarrito" name="accion" <?php if($cantProdCarrito == 0) echo "disabled class='buttonDisabled'" ?>>Vaciar carrito</button>
             </form>

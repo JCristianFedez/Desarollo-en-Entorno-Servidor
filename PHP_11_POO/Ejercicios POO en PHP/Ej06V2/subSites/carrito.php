@@ -21,10 +21,9 @@ Los productos añadidos en la cesta deben almacenarse en una cookie por si se ci
  y se abre de nuevo se recuperen automáticamente los productos añadidos a la cesta.
  -->
  <?php
-require_once "../utils/db_connect.php";
-require_once "../utils/db_consults.php";
-
-$allCarrito=loadCarrito($conexion);
+require_once "../objetos/Carrito.php";
+require_once "../objetos/Producto.php";
+$allCarrito=Carrito::getFullCarrito();
 
 ?>
 
@@ -47,28 +46,28 @@ $allCarrito=loadCarrito($conexion);
             <h1>Carrito</h1>
             <?php
             $totalCarrito=0;
-                while($carritoProd = $allCarrito->fetchObject()):
-                    $prod=selectProd($conexion,$carritoProd->clave_prod)->fetchObject();
-                    if($prod->url_local){
+                foreach($allCarrito as $codigo => $carritoProd):
+                    $prod=Producto::getProductoByClave($carritoProd->getClave());
+                    if($prod->getUrl_local()){
                         $aux="../imgs/";
                     }else{
                         $aux="";
                     }
-                    $totalCarrito+=$prod->precio*$carritoProd->cant; ?>
+                    $totalCarrito+=$prod->getPrecio()*$carritoProd->getCant(); ?>
                     <div class="productos">
-                        <a href="prodInfo.php?codProducto=<?=$prod->clave?>"><img src="<?=$aux.$prod->imagen;?>" alt=""></a>
-                        <p><?=$prod->nombre;?></p>
-                        <p>Precio: <?=$prod->precio; ?>€</p>
-                        <p>Unidades: <?=$carritoProd->cant; ?></p>
+                        <a href="prodInfo.php?codProducto=<?=$prod->getClave()?>"><img src="<?=$aux.$prod->getImagen();?>" alt=""></a>
+                        <p><?=$prod->getNombre();?></p>
+                        <p>Precio: <?=$prod->getPrecio(); ?>€</p>
+                        <p>Unidades: <?=$carritoProd->getCant(); ?></p>
                         <form action="../utils/db_actions.php" method="post">
                             <input type="hidden" name="returnTo" value="subSites/carrito.php">
-                            <input type="hidden" name="codigo" value="<?=$prod->clave?>">
+                            <input type="hidden" name="codigo" value="<?=$prod->getClave();?>">
                             <button type="submit" value="eliminarUndCarrito" name="accion">Eliminar Unidad</button>
                             <button type="submit" value="eliminarProductoCarrito" name="accion">Eliminar Producto</button>
                         </form>
                     </div>
                 <?php
-                endwhile;
+                endforeach;
                 ?>
             <div class="carritoIcon">
                 <form action="../utils/db_actions.php" method="post" class="vaciarCarrito">
