@@ -55,9 +55,6 @@ if($suplemento == ""){//Coches normales
 
 $_SESSION["cochesEjAdicional"] = serialize($coches);
 
-$_SESSION["cocheCaroEjAdicional"]["precio"] = Coche::getPrecioCaro();
-$_SESSION["cocheCaroEjAdicional"]["modelo"] = Coche::getModeloCaro();
-
 header("Location: ../principal.php");
 
 ?>

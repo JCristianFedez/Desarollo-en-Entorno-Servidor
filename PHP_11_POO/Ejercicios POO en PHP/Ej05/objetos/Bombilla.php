@@ -1,4 +1,15 @@
 <?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+
+if(!isset($_SESSION["potenciaTotalEj05"])){
+    $_SESSION["potenciaTotalEj05"]=0;
+}
+
+if(!isset($_SESSION["fusibleEj05"])){
+    $_SESSION["fusibleEj05"] = true;
+}
 
 class Bombilla {
 
@@ -15,24 +26,37 @@ class Bombilla {
 
     public function encender(){
         Bombilla::$potenciaTotal += $this->potencia;
+        $_SESSION["potenciaTotalEj05"] += $this->potencia;
+
         $this->estado = "on";
     }
 
     public function apagar(){
         Bombilla::$potenciaTotal -= $this->potencia;
+        $_SESSION["potenciaTotalEj05"] -= $this->potencia;
         $this->estado = "off";
     }
 
     public static function bajarFusible(){
-        Bombilla::$fusible = "off";
+        Bombilla::$fusible = false;
+        $_SESSION["fusibleEj05"] = Bombilla::$fusible;
     }
 
     public static function subirFusible(){
-        Bombilla::$fusible = "on";
+        Bombilla::$fusible = true;
+        $_SESSION["fusibleEj05"] = true;
+
     }
 
     public static function getPotenciaTotal(){
-        return Bombilla::$potenciaTotal;
+        Bombilla::$fusible = $_SESSION["fusibleEj05"];
+        if(Bombilla::$fusible){
+            Bombilla::$potenciaTotal = $_SESSION["potenciaTotalEj05"];
+            return Bombilla::$potenciaTotal;
+        }else{
+            return 0;
+        }
+
     }
     public static function setPotenciaTotal($potencia){
         Bombilla::$potenciaTotal = $potencia;

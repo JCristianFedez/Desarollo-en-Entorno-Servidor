@@ -1,4 +1,15 @@
 <?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+
+if(!isset($_SESSION["cocheCaroEjAdicional"]["precio"])){
+    $_SESSION["cocheCaroEjAdicional"]["precio"] = 0;
+}
+
+if(!isset($_SESSION["cocheCaroEjAdicional"]["modelo"])){
+    $_SESSION["cocheCaroEjAdicional"]["modelo"] = "";
+}
 
 class Coche {
 
@@ -16,10 +27,18 @@ class Coche {
         if(Coche::$precioCaro < $precio){
             Coche::$precioCaro = $precio;
             Coche::$modeloCaro = $modelo;
+            $_SESSION["cocheCaroEjAdicional"]["modelo"] = Coche::$modeloCaro;
+            $_SESSION["cocheCaroEjAdicional"]["precio"] = Coche::$precioCaro;
         }
     }
 
     public static function masCaro(){
+        if(Coche::$modeloCaro == ""){
+            Coche::$modeloCaro = $_SESSION["cocheCaroEjAdicional"]["modelo"];
+        }
+        if(Coche::$precioCaro == ""){
+            Coche::$precioCaro = $_SESSION["cocheCaroEjAdicional"]["precio"];
+        }
         $str = "Modelo mas caro: ".Coche::$modeloCaro.
         " con un precio de ".Coche::$precioCaro." €";
         return $str;
@@ -45,10 +64,13 @@ class Coche {
     }
 
     public function setModelo($modelo){
+        Coche::$precioCaro = $_SESSION["cocheCaroEjAdicional"]["precio"];
         $this->modelo = $modelo;
-        if(Coche::$precioCaro < $this->precio){
-            Coche::$precioCaro = $this->precio;
-            Coche::$modeloCaro = $this->modelo;
+        if(Coche::$precioCaro < $this->$precio){
+            Coche::$precioCaro = $this->$precio;
+            Coche::$modeloCaro = $this->$modelo;
+            $_SESSION["cocheCaroEjAdicional"]["modelo"] = Coche::$modeloCaro;
+            $_SESSION["cocheCaroEjAdicional"]["precio"] = Coche::$precioCaro;
         }
         return $this;
     }
@@ -58,15 +80,20 @@ class Coche {
     }
 
     public function setPrecio($precio){
+        Coche::$precioCaro = $_SESSION["cocheCaroEjAdicional"]["precio"];
+
         $this->precio = $precio;
-        if(Coche::$precioCaro < $this->precio){
-            Coche::$precioCaro = $this->precio;
-            Coche::$modeloCaro = $this->modelo;
+        if(Coche::$precioCaro < $this->$precio){
+            Coche::$precioCaro = $this->$precio;
+            Coche::$modeloCaro = $this->$modelo;
+            $_SESSION["cocheCaroEjAdicional"]["modelo"] = Coche::$modeloCaro;
+            $_SESSION["cocheCaroEjAdicional"]["precio"] = Coche::$precioCaro;
         }
         return $this;
     }
 
     public static function getModeloCaro(){
+        Coche::$modeloCaro = $_SESSION["cocheCaroEjAdicional"]["modelo"];
         return Coche::$modeloCaro;
     }
 
@@ -76,6 +103,7 @@ class Coche {
     }
     
     public static function getPrecioCaro(){
+        Coche::$precioCaro = $_SESSION["cocheCaroEjAdicional"]["precio"];
         return Coche::$precioCaro;
     }
 

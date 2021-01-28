@@ -6,7 +6,6 @@ if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
 
-
 if(!isset($_SESSION["bombillaEj05"])){
     $_SESSION["bombillaEj05"] = serialize([
         new Bombilla("Comedor",400),
@@ -20,9 +19,8 @@ if(!isset($_SESSION["bombillaEj05"])){
 $bombillas = unserialize($_SESSION["bombillaEj05"]);
 
 
-if(isset($_REQUEST["fusible"]) || isset($_SESSION["fusibleEj05"])){
-    $fusible = (isset($_REQUEST["fusible"]))?$_REQUEST["fusible"]:$_SESSION["fusibleEj05"];
-    switch ($fusible) {
+if(isset($_REQUEST["fusibleEj05"])){
+    switch ($_REQUEST["fusibleEj05"]) {
         case 'bajar':
             Bombilla::bajarFusible();
             break;
@@ -30,18 +28,8 @@ if(isset($_REQUEST["fusible"]) || isset($_SESSION["fusibleEj05"])){
             Bombilla::subirFusible();
             break;
     }
-    $_SESSION["fusibleEj05"] = $fusible;
 }
 
-//Recalcular potencial de las bombillas
-if(!Bombilla::getPotenciaTotal()){
-    foreach($bombillas as $bombilla){
-        if($bombilla->getEstado() == "on"){
-            $aux = Bombilla::getPotenciaTotal()+$bombilla->getPotencia();
-            Bombilla::setPotenciaTotal($aux); 
-        }
-    }
-}
 
 ?>
 
@@ -85,8 +73,8 @@ if(!Bombilla::getPotenciaTotal()){
         </fieldset>
         </form>
         <form action="#" method="post">
-            <button type="submit" value="bajar" name="fusible">Bajar fusibles</button>
-            <button type="submit" value="subir" name="fusible">Subir fusibles</button>
+            <button type="submit" value="bajar" name="fusibleEj05">Bajar fusibles</button>
+            <button type="submit" value="subir" name="fusibleEj05">Subir fusibles</button>
         </form>
         <form action="actions/reset.php" method="post">
             <input type="submit" value="Resetear bombillas">

@@ -17,15 +17,6 @@ if(!isset($_SESSION["cochesEjAdicional"])){
 
 $coches = unserialize($_SESSION["cochesEjAdicional"]);
 
-
-if(Coche::getPrecioCaro() == 0){
-    Coche::setPrecioCaro($_SESSION["cocheCaroEjAdicional"]["precio"]);
-    Coche::setModeloCaro($_SESSION["cocheCaroEjAdicional"]["modelo"]);
-}else{
-    $_SESSION["cocheCaroEjAdicional"]["precio"] = Coche::getPrecioCaro();
-    $_SESSION["cocheCaroEjAdicional"]["modelo"] = Coche::getModeloCaro();
-}
-
 $keyAux = 0;
 ?>
 
