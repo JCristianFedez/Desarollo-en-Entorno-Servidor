@@ -1,5 +1,6 @@
 <?php 
 require_once "TiendaDB.php";
+require_once "Producto.php";
 
 class Carrito {
 
@@ -21,7 +22,20 @@ class Carrito {
     public function delete(){
         $conexion = TiendaDB::connectDB();
         $borrado = "DELETE FROM carrito
-        WHERE clave='$this->clave_prod'";
+        WHERE clave_prod='$this->clave_prod'";
+        
+
+        $prod = Producto::getProductoByClave($this->clave_prod);
+        $prod->reponer($this->cant);
+        $conexion->exec($borrado);
+    }
+
+    public function update(){
+        $conexion = TiendaDB::connectDB();
+        $actualizar = "UPDATE carrito
+        SET clave_prod='$this->clave_prod',cant='$this->cant'
+        WHERE clave_prod='$this->clave_prod'";
+        $conexion->exec($actualizar);
     }
 
     public static function getFullCarrito(){
@@ -41,16 +55,18 @@ class Carrito {
     }
 
     public static function getProdCarritoByClave($clave_prod){
-        $conexion = TiendaDB::connectDB;
+        $conexion = TiendaDB::connectDB();
         $seleccion = "SELECT clave_prod, cant
         FROM carrito
         WHERE clave_prod='$clave_prod'";
         $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
-
+        if(empty($registro)){
+            return false;
+        }
         $producto = new Carrito($registro->clave_prod, $registro->cant);
 
-        return $productos;
+        return $producto;
     }
 
     public static function getCantTotal(){
@@ -68,6 +84,9 @@ class Carrito {
         }else{
             $this->cant += $cant;
         }
+        $this->update();
+        $prod = Producto::getProductoByClave($this->clave_prod);
+        $prod->vender($cant);
     }
 
     public function quitar($cant){
@@ -76,6 +95,34 @@ class Carrito {
         }else{
             $this->cant -= $cant;
         }
+
+        $prod = Producto::getProductoByClave($this->clave_prod);
+        $prod->reponer($cant);
+
+        if($this->cant == 0){
+            $this->delete();
+        }else{
+            $this->update();
+        }
+    }
+
+    public static function vaciarCarrito(){
+        $conexion = TiendaDB::connectDB();
+
+        $allCarrito = Carrito::getFullCarrito();
+        foreach ($allCarrito as $codigo => $carritoProd) {
+            $prod=Producto::getProductoByClave($carritoProd->getClave());
+            $prod->reponer($carritoProd->getCant());
+        }
+
+        $vaciarCarrito = "TRUNCATE TABLE carrito";
+        $conexion->exec($vaciarCarrito);
+    }
+
+    public static function realizarCompra(){
+        $conexion = TiendaDB::connectDB();
+        $vaciarCarrito = "TRUNCATE TABLE carrito";
+        $conexion->exec($vaciarCarrito);
     }
 
     public function getClave(){

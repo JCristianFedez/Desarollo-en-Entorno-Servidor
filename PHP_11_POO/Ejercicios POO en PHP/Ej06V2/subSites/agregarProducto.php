@@ -17,10 +17,6 @@
         <div class="addModProducto">
             <form action="../utils/db_actions.php" method="post">
                 <input type="hidden" name="returnTo" value="subSites/adminShop.php">
-                <label for="codigo">Codigo:
-                    <input type="text" name="codigo" id="codigo" required>
-                </label>
-                <br>
                 <label for="nombre">Nombre:
                     <input type="text" name="nombre" id="nombre" required>
                 </label>

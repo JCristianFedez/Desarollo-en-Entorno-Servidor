@@ -30,6 +30,17 @@ class Producto {
         $conexion = TiendaDB::connectDB();
         $borrado = "DELETE FROM productos
         WHERE clave='$this->clave'";
+        $conexion->exec($borrado);
+    }
+
+    public function update(){
+        $conexion = TiendaDB::connectDB();
+        $actualizar = "UPDATE productos
+        SET nombre='$this->nombre',precio='$this->precio',
+            imagen='$this->imagen',url_local='$this->url_local',
+            stock='$this->stock'
+        WHERE clave='$this->clave'";
+        $conexion->exec($actualizar);
     }
 
     public static function getProductos(){
@@ -57,7 +68,9 @@ class Producto {
         WHERE clave='$clave'";
         $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
-
+        if(empty($registro)){
+            return false;
+        }
         $producto = new Producto(
             $registro->clave, $registro->nombre,
             $registro->precio,$registro->imagen,
@@ -73,6 +86,7 @@ class Producto {
         }else{
             $this->stock += $cant;
         }
+        $this->update();
     }
 
     public function vender($cant){
@@ -81,6 +95,7 @@ class Producto {
         }else{
             $this->stock -= $cant;
         }
+        $this->update();
     }
 
 

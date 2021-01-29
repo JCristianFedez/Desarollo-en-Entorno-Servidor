@@ -71,6 +71,7 @@ $allCarrito=Carrito::getFullCarrito();
                 ?>
             <div class="carritoIcon">
                 <form action="../utils/db_actions.php" method="post" class="vaciarCarrito">
+                    <i class="fas fa-shopping-cart"></i>
                     <p>Total carrito : <?=$totalCarrito?>€</p>
                     <button type="submit" value="vaciarCarrito" name="accion" <?php if($totalCarrito == 0) echo "disabled class='buttonDisabled'" ?>>Vaciar carrito</button>
                 </form>
@@ -87,18 +88,6 @@ $allCarrito=Carrito::getFullCarrito();
             <button onclick="window.location.replace('../Ej06.php');">Volver</button>
         </div>
     </div>
-            <!-- <?php print_r($_SESSION["carrito"]);?>
-            <br><br>
-            <?php print_r($_SESSION["productos"]);?>
-            <br><br>
-            <?php print_r(unserialize(base64_decode($_COOKIE["carrito"]))); ?>
-            <br><br>
-            <?php 
-            print_r(unserialize(base64_decode($_COOKIE["productos"]))); ?> -->
 </body>
 
 </html>
-
-<?php 
-$conexion=null;
-?>

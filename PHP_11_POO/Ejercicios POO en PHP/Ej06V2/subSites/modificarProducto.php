@@ -1,11 +1,15 @@
 <?php
+if(!isset($_REQUEST["codProducto"])){
+    header("Location:../Ej06.php");
+}
+
 if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
 
 include_once "../objetos/Producto.php";
 
-$prodAModificar = unserialize($_SESSION["productos"])[$_REQUEST["codigo"]];
+$prodAModificar = Producto::getProductoByClave($_REQUEST["codProducto"]);
 
 if($prodAModificar->getUrl_local() == 1){
     $check="checked";

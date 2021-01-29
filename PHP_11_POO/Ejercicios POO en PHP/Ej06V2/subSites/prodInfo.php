@@ -9,7 +9,7 @@ if(session_status() == PHP_SESSION_NONE){
 
 include_once "../objetos/Producto.php";
 
-$producto = unserialize($_SESSION["productos"])[$_REQUEST["codProducto"]];
+$producto = Producto::getProductoByClave($_REQUEST["codProducto"]);
 
 if($producto->getUrl_local()){
     $aux="../imgs/";

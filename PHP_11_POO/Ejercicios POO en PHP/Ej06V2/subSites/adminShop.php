@@ -5,7 +5,7 @@ if(session_status() == PHP_SESSION_NONE){
 
 include_once "../objetos/Producto.php";
 
-$productos = unserialize($_SESSION["productos"]);
+$productos = Producto::getProductos();
 
 ?>
 <!DOCTYPE html>
@@ -38,11 +38,11 @@ $productos = unserialize($_SESSION["productos"]);
                     <p>Stock: <?=$prodUnd->getStock()?> Unds</p>
                     <form action="../utils/db_actions.php" method="post">
                         <input type="hidden" name="returnTo" value="subSites/adminShop.php">
-                        <input type="hidden" name="codigo" value="<?=$prodUnd->getClave()?>">
+                        <input type="hidden" name="codProducto" value="<?=$prodUnd->getClave()?>">
                         <input type="submit" name="accion" value="eliminarProducto">
                     </form>
                     <form action="modificarProducto.php" method="post">
-                        <input type="hidden" name="codigo" value="<?=$prodUnd->getClave()?>">
+                        <input type="hidden" name="codProducto" value="<?=$prodUnd->getClave()?>">
                         <input type="submit" name="accion" value="modificarProducto">
                     </form>
                 </div>
@@ -63,7 +63,3 @@ $productos = unserialize($_SESSION["productos"]);
 </body>
 
 </html>
-
-<?php 
-$conexion=null;
-?>

@@ -1,20 +1,21 @@
 <?php
 require "pdfcrowd.php";
-require_once "db_connect.php";
-require_once "db_consults.php";
 
-$allCarrito=loadCarrito($conexion);
+include_once "../objetos/Producto.php";
+include_once "../objetos/Carrito.php";
+
+$allCarrito=Carrito::getFullCarrito();
 $urlBack = "../Ej06.php";
 $ticket = "";
 $totalCarrito = 0;
-while($carritoProd = $allCarrito->fetchObject()){
-    $prod=selectProd($conexion,$carritoProd->clave_prod)->fetchObject();
-    $totalCarrito+=$prod->precio*$carritoProd->cant;
+foreach($allCarrito as $codigo => $carritoProd){
+    $prod=Producto::getProductoByClave($carritoProd->getClave());
+    $totalCarrito+=$prod->getPrecio()*$carritoProd->getCant();
     $ticket .= "<tr>";
-    $ticket .= "<td>".$prod->nombre."</td>";
-    $ticket .= "<td>".$prod->precio."</td>";
-    $ticket .= "<td>".$carritoProd->cant."</td>";
-    $ticket .= "<td>".($carritoProd->cant * $prod->precio)."</td>";
+    $ticket .= "<td>".$prod->getNombre()."</td>";
+    $ticket .= "<td>".$prod->getPrecio()."</td>";
+    $ticket .= "<td>".$carritoProd->getCant()."</td>";
+    $ticket .= "<td>".($carritoProd->getCant() * $prod->getPrecio())."</td>";
     $ticket .= "</tr>";
 }
 
@@ -65,6 +66,6 @@ catch(\Pdfcrowd\Error $why)
     throw $why;
 }
 
-deleteCarrito($conexion);
-$conexion = null;
+Carrito::realizarCompra();
+
 header("Location: $urlBack");

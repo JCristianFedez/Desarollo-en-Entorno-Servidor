@@ -11,7 +11,6 @@ compra en una cookie, de manera que se pueda retomar
 la compra aunque se cierre el navegador. (Ejercicio completo)  -->
 <?php
 
-//TODO: Quitar consultas y añadir con objetos
 if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
@@ -33,7 +32,6 @@ if(!$cantProdCarrito) $cantProdCarrito=0;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link rel="stylesheet" href="style.css">
     <title>Ej06</title>
 </head>
@@ -85,7 +83,3 @@ if(!$cantProdCarrito) $cantProdCarrito=0;
 </body>
 
 </html>
-
-<?php 
-$conexion=null;
-?>

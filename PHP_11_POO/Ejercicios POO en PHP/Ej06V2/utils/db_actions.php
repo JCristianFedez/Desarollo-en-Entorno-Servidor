@@ -1,63 +1,69 @@
 <?php 
-require_once "db_connect.php";
-require_once "db_consults.php";
+
 require_once "../objetos/Producto.php";
+require_once "../objetos/Carrito.php";
+
 if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
 
 switch($_REQUEST["accion"]){
     case "vaciarCarrito":
-        $carrito = loadCarrito($conexion);
-        while ($itemCarrito = $carrito->fetchObject()) {
-            addStock($conexion,$itemCarrito->clave_prod,$itemCarrito->cant);
-            }
-        deleteCarrito($conexion);
+        Carrito::vaciarCarrito();
         break;
         
     case "agregarCarrito":
-        if(quitarStock($conexion,$_REQUEST["codigo"],1)){
-            addToCarrito($conexion,$_REQUEST["codigo"],1);
+        if($carritoProd = Carrito::getProdCarritoByClave($_REQUEST["codigo"])){
+            $carritoProd->agregar(1);
+        }else{
+            $carritoProd = new Carrito($_REQUEST["codigo"],0);
+            $carritoProd->insert();
+            $carritoProd->agregar(1);
         }
         break;
 
     case "agregarProducto":
         $urlLocal=(isset($_REQUEST["urlLocal"]))?1:0;
-        addProductShop(
-            $conexion,$_REQUEST["codigo"],
-            $_REQUEST["nombre"],$_REQUEST["precio"],
-            $_REQUEST["imagen"],$urlLocal,$_REQUEST["stock"]
+        $newProd = new Producto(
+            null,$_REQUEST["nombre"],
+            $_REQUEST["precio"],$_REQUEST["imagen"],
+            $urlLocal,$_REQUEST["stock"]
         );
+        $newProd->insert();
         break;
 
-        case "modificarProducto":
-            $urlLocal=(isset($_REQUEST["urlLocal"]))?1:0;
-            modProductShop(
-                $conexion,$_REQUEST["codigo"],
-                $_REQUEST["nombre"],$_REQUEST["precio"],
-                $_REQUEST["imagen"],$urlLocal,$_REQUEST["stock"]
-            );
-            break;
+    case "modificarProducto":
+        $urlLocal=(isset($_REQUEST["urlLocal"]))?1:0;
+
+        $prodAModificar = Producto::getProductoByClave($_REQUEST["codigo"]);
+        $prodAModificar->setNombre($_REQUEST["nombre"]);
+        $prodAModificar->setPrecio($_REQUEST["precio"]);
+        $prodAModificar->setImagen($_REQUEST["imagen"]);
+        $prodAModificar->setUrl_local($urlLocal);
+        $prodAModificar->setStock($_REQUEST["stock"]);
+
+        $prodAModificar->update();
+        break;
 
     case "eliminarUndCarrito":
-        addStock($conexion,$_REQUEST["codigo"],1);
-        deleteProdCarrito($conexion,$_REQUEST["codigo"],1);
+        $carritoProd = Carrito::getProdCarritoByClave($_REQUEST["codigo"]);
+        $carritoProd->quitar(1);
+
         break;
         
     case "eliminarProductoCarrito":
-        $prodCarrito = selectCarritoProd($conexion,$_REQUEST["codigo"])->fetchObject();
-        addStock($conexion,$_REQUEST["codigo"],$prodCarrito->cant);
-        deleteProdCarrito($conexion,$_REQUEST["codigo"]);
+        $carritoProd = Carrito::getProdCarritoByClave($_REQUEST["codigo"]);
+        $carritoProd->delete();
+        
         break;
 
     case "eliminarProducto":
-        deleteProdCarrito($conexion,$_REQUEST["codigo"]);
-        deleteProd($conexion,$_REQUEST["codigo"]);
+        $prodCarrito = Carrito::getProdCarritoByClave($_REQUEST["codProducto"]);
+        $prod = Producto::getProductoByClave($_REQUEST["codProducto"]);
+        $prodCarrito->delete();
+        $prod->delete();
         break;
 }
-
-include_once "db_to_object.php";
-$conexion=null;
 
 if(isset($_REQUEST["returnTo"])){
     header("Location: ../".$_REQUEST["returnTo"]);
