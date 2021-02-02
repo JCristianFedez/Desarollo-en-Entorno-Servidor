@@ -6,42 +6,66 @@ class Articulo{
 
     private $id;
     private $titulo;
-    private $fecha;
     private $contenido;
+    private $fecha;
 
-    function __construct($id,$titulo="",$contenido=""){
-        if(isset($id)){
-            $this->id = $id;
-        }
+    function __construct($id="",$titulo="",$contenido="",$fecha=""){
+        $this->id = $id;
         $this->titulo = $titulo;
-        $this->fecha = date("d/m/Y");
         $this->contenido = $contenido;
+        $this->fecha = $fecha;
     }
 
     public function insert(){
         $conexion = BlogDB::connectDB();
         $inserccion = 
-        "INSERT INTO articulo (titulo,fecha,contenido)
-        VALUES ($this->titulo,$this->fecha,$this->contenido);";
+        "INSERT INTO articulo (titulo,contenido,fecha)
+        VALUES ('$this->titulo','$this->contenido',NOW());";
     
         $conexion->exec($inserccion);
     }
 
     public function delete(){
         $conexion = BlogDB::connectDB();
-        $borrado = "DELETE FROM artiuclo
+        $borrado = "DELETE FROM articulo
         WHERE id=$this->id;";
 
         $conexion->exec($borrado);
     }
 
-    public function getArticulos(){
+    public static function getArticulos(){
         $conexion = BlogDB::connectDB();
-        $seleccion = "SELECT * FROM articulo";
+        $seleccion = "SELECT * FROM articulo ORDER BY fecha";
         $consulta = $conexion->query($seleccion);
 
         $articulos = [];
-        //TODO: TERMINAR ESTE 
+        
+        while($registro = $consulta->fetchObject()){
+            $articulos[] = new Articulo(
+                $registro->id,
+                $registro->titulo,
+                $registro->contenido,
+                $registro->fecha
+            );
+        }
+
+        return $articulos;
+    }
+
+    public static function getArticuloById($id){
+        $conexion = BlogDB::ConnectDB();
+        $seleccion = "SELECT * FROM articulo WHERE id=$id";
+        $consulta = $conexion->query($seleccion);
+        $registro = $consulta->fetchObject();
+
+        $articulo = new Articulo(
+            $registro->id,
+            $registro->titulo,
+            $registro->contenido,
+            $registro->fecha
+        );
+
+        return $articulo;
     }
 
     public function getId(){

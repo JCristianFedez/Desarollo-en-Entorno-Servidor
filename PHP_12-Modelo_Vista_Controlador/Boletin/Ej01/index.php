@@ -1,3 +1,3 @@
 <?php 
-header("Locatoin: ../Controller.php");
+header("Location: Controller/index.php");
 ?>
