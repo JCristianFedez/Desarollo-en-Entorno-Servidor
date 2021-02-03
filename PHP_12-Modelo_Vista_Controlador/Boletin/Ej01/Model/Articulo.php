@@ -33,6 +33,17 @@ class Articulo{
         $conexion->exec($borrado);
     }
 
+    public function update(){
+        $conexion = BlogDB::connectDB();
+        $actualizar = "UPDATE articulo
+        SET titulo='$this->titulo',
+            contenido='$this->contenido',
+            fecha=NOW()
+        WHERE id='$this->id'";
+
+        $conexion->exec($actualizar);
+    }
+
     public static function getArticulos(){
         $conexion = BlogDB::connectDB();
         $seleccion = "SELECT * FROM articulo ORDER BY fecha";

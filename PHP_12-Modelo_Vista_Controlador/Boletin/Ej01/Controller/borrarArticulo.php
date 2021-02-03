@@ -2,7 +2,7 @@
 require_once "../Model/Articulo.php";
 
 $id = $_REQUEST["id"];
-$articuloABorrar = new Articulo($id);
+$articuloABorrar = Articulo::getArticuloById($id);
 
 $articuloABorrar->delete();
 

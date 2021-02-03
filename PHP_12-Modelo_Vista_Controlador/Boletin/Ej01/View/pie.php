@@ -1,0 +1,1 @@
+<footer>Cristian &copy</footer>
