@@ -3,7 +3,7 @@
     $nombre = $_REQUEST["nombre"];
     $precio = $_REQUEST["precio"];
     $stock = $_REQUEST["stock"];
-    $img = $_REQUEST["img"];
+    $img = $_REQUEST["imagen"];
 
     $newProd = new Producto(
         null,
