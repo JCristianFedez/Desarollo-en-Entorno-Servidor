@@ -3,7 +3,6 @@
     require_once "../Model/Producto.php";
 
     $data["productos"] = Producto::getProductos();
-    $data["cantCarrito"] = Carrito::getCantTotal();
     
-    include "../View/listadoProductos.php";
+    include "../View/administrarTienda.php";
 ?>

@@ -111,7 +111,7 @@ class Carrito {
 
         $allCarrito = Carrito::getFullCarrito();
         foreach ($allCarrito as $codigo => $carritoProd) {
-            $prod=Producto::getProductoById($carritoProd->getId());
+            $prod=Producto::getProductoById($carritoProd->getIdProd());
             $prod->reponer($carritoProd->getCant());
         }
 

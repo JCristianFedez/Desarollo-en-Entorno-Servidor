@@ -55,17 +55,17 @@ class Producto{
                 $prod->nombre,
                 $prod->precio,
                 $prod->stock,
-                $prod->imagen
+                $prod->img
             );
         }
 
         return $productos;
     }
 
-    public function getProductoById($id){
+    public static function getProductoById($id){
         $conexion = TiendaDB::connectDB();
         $seleccion = "SELECT * FROM producto WHERE id='$id'";
-        $consuta = $conexion->query($seleccion);
+        $consulta = $conexion->query($seleccion);
         $registro = $consulta->fetchObject();
 
         if(empty($registro)){
@@ -73,11 +73,11 @@ class Producto{
         }
 
         $producto = new Producto(
-            $prod->id,
-            $prod->nombre,
-            $prod->precio,
-            $prod->stock,
-            $prod->imagen
+            $registro->id,
+            $registro->nombre,
+            $registro->precio,
+            $registro->stock,
+            $registro->img
         );
         return $producto;
     }
