@@ -20,6 +20,10 @@
                     <p><?=$prod->getNombre()?></p>
                     <p>Precio: <?=$prod->getPrecio()?>€</p>
                     <p>Stock: <?=$prod->getStock()?> Unds</p>
+                    <form action="agregaStock.php" method="post">
+                        <input type="hidden" name="idProd" value="<?=$prod->getId()?>">
+                        <input type="submit" name="accion" value="Añadir Stock">
+                    </form>
                     <form action="eliminarProductoTienda.php" method="post">
                         <input type="hidden" name="idProd" value="<?=$prod->getId()?>">
                         <input type="submit" name="accion" value="eliminarProducto">
