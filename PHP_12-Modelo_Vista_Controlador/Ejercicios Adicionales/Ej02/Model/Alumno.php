@@ -1,6 +1,7 @@
 <?php 
 
 require_once "EscuelaDB.php";
+require_once "Asignatura.php";
 
 class Alumno{
 
@@ -78,6 +79,58 @@ class Alumno{
         );
 
         return $alumno;
+    }
+
+    public function getAsignaturas(){
+        $conexion = EscuelaDB::connectDB();
+        $seleccion = 
+        "SELECT
+            alumno.nombre AS 'alumno',
+            asignatura.nombre AS 'asignatura',
+            asignatura.id AS 'idAsignatura'
+        FROM
+            alumno_asignatura
+        INNER JOIN alumno ON alumno.matricula = alumno_asignatura.matriculaAlumno
+        INNER JOIN asignatura ON asignatura.id = alumno_asignatura.idAsignatura
+        WHERE alumno.matricula='$this->matricula'";
+
+        $consulta = $conexion->query($seleccion);
+
+        $asignaturas = [];
+
+        while($asig = $consulta->fetchObject()){
+            $asignaturas[] = new Asignatura(
+                $asig->idAsignatura,
+                $asig->asignatura
+            );
+        }
+
+        return $asignaturas;
+    }
+
+    public function desmatricularByIdAsignatura($id){
+        $conexion = EscuelaDB::connectDB();
+        $borrado = 
+        "DELETE
+        FROM
+            alumno_asignatura
+        WHERE
+            matriculaAlumno = '$this->matricula' AND idAsignatura = '$id'";
+        $conexion->exec($borrado);
+    }
+
+    public function matricularByIdAsignatura($id){
+        "INSERT INTO alumno (matricula,nombre,apellidos,curso)
+        VALUES ('$this->matricula','$this->nombre','$this->apellidos','$this->curso');";
+        $conexion = EscuelaDB::connectDB();
+        $borrado = 
+        "INSERT
+        INTO
+            alumno_asignatura
+        (matriculaAlumno,idAsignatura)
+        VALUES
+        ('$this->matricula','$id');";
+        $conexion->exec($borrado);
     }
 
     public function getMatricula(){

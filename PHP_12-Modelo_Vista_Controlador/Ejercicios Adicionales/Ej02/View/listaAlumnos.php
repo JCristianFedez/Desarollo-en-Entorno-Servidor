@@ -7,7 +7,7 @@
 </head>
 <body>
     <a href="verAsignaturas.php">Ver Asignaturas</a>
-    <a href="ingresarDatosAsignatura.php">Añadir Alumno</a>
+    <a href="agregarAlumno.php">Añadir Alumno</a>
     <table border=1>
         <thead>
             <tr>

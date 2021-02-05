@@ -7,7 +7,7 @@
 </head>
 <body>
     <a href="index.php">Ver Alumnos</a>
-    <a href="ingresarDatosAsignatura.php">Añadir Asignatura</a>
+    <a href="agregarAsignatura.php">Añadir Asignatura</a>
     <table border=1>
         <thead>
             <tr>
@@ -22,7 +22,7 @@
                     <td><?=$asignatura->getNombre()?></td>
                     <td>
                         <form action="eliminarAsignatura.php" method="post">
-                            <input type="hidden" name="idAsignatura" value="<?=$asignatura->getId()?>">
+                            <input type="hidden" name="id" value="<?=$asignatura->getId()?>">
                             <input type="submit" value="Eliminar Asignatura">
                         </form>
                     </td>
