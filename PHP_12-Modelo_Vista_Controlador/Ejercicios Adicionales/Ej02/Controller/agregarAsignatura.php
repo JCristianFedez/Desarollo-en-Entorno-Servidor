@@ -16,11 +16,10 @@ if(isset($_REQUEST["guardar"])){
     header("Location: verAsignaturas.php");
 
 }else{
-    $data["id"] = "autoincremental";
+    $data["id"] = "";
     $data["nombre"] = "";
     $data["action"] = "Agregar";
     $data["readonly"] = "readonly";
-    
     include "../View/formularioAsignatura.php";
 }
 

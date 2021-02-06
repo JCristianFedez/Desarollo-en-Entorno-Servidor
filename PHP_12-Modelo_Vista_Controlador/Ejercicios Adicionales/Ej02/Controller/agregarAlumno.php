@@ -1,4 +1,7 @@
 <?php 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if(isset($_REQUEST["guardar"])){
     require_once "../Model/Alumno.php";
@@ -15,9 +18,15 @@ if(isset($_REQUEST["guardar"])){
         $curso
     );
 
-    $nuevoAlumno->insert();
+    if(Alumno::getAlumnoByMatricula($matricula)){
+        $_SESSION["error"] = "Alumno ya existente";
+        header("Location: agregarAlumno.php");
+    }else{
+        $nuevoAlumno->insert();
+        header("Location: index.php");
+    }
     
-    header("Location: index.php");
+
 
 }else{
     $data["matricula"] = "";
@@ -26,7 +35,14 @@ if(isset($_REQUEST["guardar"])){
     $data["curso"] = "";
     $data["action"] = "Agregar";
     $data["readonly"] = "";
-    
+    if(isset($_SESSION["error"])){
+        $data["error"] = $_SESSION["error"];
+        $data["errorVisibility"] = "visible";
+        unset($_SESSION["error"]);
+    }else{
+        $data["error"] = "";
+        $data["errorVisibility"] = "invisible";
+    }
     include "../View/formularioAlumno.php";
 }
 

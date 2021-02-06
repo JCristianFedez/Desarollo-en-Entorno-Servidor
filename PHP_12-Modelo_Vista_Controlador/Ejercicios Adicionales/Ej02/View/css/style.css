@@ -1,0 +1,36 @@
+.full-container {
+    background: linear-gradient(270deg, #00ffbf60, #51ff0060);
+    background-size: 1000% 1000%;
+    min-height: 100vh;
+    min-width: 100vh;
+    -webkit-animation: background-animation 10s ease infinite;
+    -moz-animation: background-animation 10s ease infinite;
+    -o-animation: background-animation 10s ease infinite;
+    animation: background-animation 10s ease infinite;
+
+}
+
+@-webkit-keyframes background-animation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes background-animation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-o-keyframes background-animation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes background-animation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.bg-white-opacity{
+    background-color: rgba(255, 255, 255, 0.5);
+}

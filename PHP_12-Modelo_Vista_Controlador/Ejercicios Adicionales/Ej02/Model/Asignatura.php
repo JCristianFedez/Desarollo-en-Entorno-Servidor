@@ -19,6 +19,10 @@ class Asignatura{
         $conexion->exec($inserccion);
     }
 
+    
+    // No hace falta comprobar nada ya que he creado las claves
+    //fornaeas con actualizacion y eliminacion en cascada por lo que
+    //si elimino una asignatura todos los alumnos se desmatriculan automaticamente
     public function delete(){
         $conexion = EscuelaDB::connectDB();
         $borrado = "DELETE FROM asignatura

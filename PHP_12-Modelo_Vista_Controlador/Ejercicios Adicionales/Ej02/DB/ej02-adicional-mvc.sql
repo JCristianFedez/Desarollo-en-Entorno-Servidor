@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-02-2021 a las 17:02:36
+-- Tiempo de generación: 06-02-2021 a las 16:03:31
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -44,7 +44,8 @@ INSERT INTO `alumno` (`matricula`, `nombre`, `apellidos`, `curso`) VALUES
 ('asd111', 'Cristian', 'Fernandez Tirado', '2DAW'),
 ('asd112', 'Antoino', 'Martinez Gutierez', '2ESO'),
 ('asd113', 'David', 'Saeta Gutierez', '1DAW'),
-('asd114', 'Pedro', 'Garcia Garcia', '2ESO');
+('asd114', 'Pedro', 'Garcia Garcia', '2ESO'),
+('asd115', 'Aitor', 'Tilla Depapa', '2DAW');
 
 -- --------------------------------------------------------
 
@@ -56,17 +57,6 @@ CREATE TABLE `alumno_asignatura` (
   `matriculaAlumno` varchar(10) NOT NULL,
   `idAsignatura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `alumno_asignatura`
---
-
-INSERT INTO `alumno_asignatura` (`matriculaAlumno`, `idAsignatura`) VALUES
-('asd111', 1),
-('asd111', 3),
-('asd111', 4),
-('asd112', 1),
-('asd112', 5);
 
 -- --------------------------------------------------------
 
@@ -86,7 +76,6 @@ CREATE TABLE `asignatura` (
 INSERT INTO `asignatura` (`id`, `nombre`) VALUES
 (1, 'DWEC'),
 (3, 'DWES'),
-(4, 'Ingles'),
 (5, 'EIE'),
 (6, 'DAW'),
 (7, 'DIW'),
@@ -133,8 +122,8 @@ ALTER TABLE `asignatura`
 -- Filtros para la tabla `alumno_asignatura`
 --
 ALTER TABLE `alumno_asignatura`
-  ADD CONSTRAINT `alumno_asignatura_ibfk_1` FOREIGN KEY (`matriculaAlumno`) REFERENCES `alumno` (`matricula`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `alumno_asignatura_ibfk_2` FOREIGN KEY (`idAsignatura`) REFERENCES `asignatura` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `alumno_asignatura_ibfk_1` FOREIGN KEY (`idAsignatura`) REFERENCES `asignatura` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `alumno_asignatura_ibfk_2` FOREIGN KEY (`matriculaAlumno`) REFERENCES `alumno` (`matricula`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
