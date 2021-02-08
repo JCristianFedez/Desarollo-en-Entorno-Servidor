@@ -24,7 +24,7 @@
 
         <!-- Contenedor del formulario -->
         <div class="container mt-2">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-10  col-lg-8 col-xl-6 py-2 rounded-3 bg-white-opacity">
                     <form action="" method="post" class="form">
                         <input type="hidden" name="guardar">
