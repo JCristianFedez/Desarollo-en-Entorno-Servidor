@@ -6,7 +6,8 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- Bootstrap CSS -->
-    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous'>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl' crossorigin='anonymous'>
     <title>Hello, world!</title>
 </head>
 
@@ -14,6 +15,7 @@
     <?php include "../View/header.php" ?>
     <div class="container">
         <div class="row">
+            <?php if(!isset($data["error"])): ?>
             <?php foreach ($data["peli"] as $peli):?>
             <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
                 <div class="card" style="width: 100%;">
@@ -25,6 +27,9 @@
                 </div>
             </div>
             <?php endforeach; ?>
+            <?php else: ?>
+                <h2><?=$data["error"]?></h2>
+            <?php endif; ?>
         </div>
     </div>
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js'

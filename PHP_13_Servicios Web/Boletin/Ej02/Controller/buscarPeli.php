@@ -9,7 +9,6 @@ $peliculas = json_decode($datos);
 
 if(isset($pelis->Error)){
     $data["error"] = "Pelicula no existe";
-    echo "ERRO";
 }else{
     foreach ($peliculas->Search as $peli) {
         if($peli->Poster != "N/A"){
