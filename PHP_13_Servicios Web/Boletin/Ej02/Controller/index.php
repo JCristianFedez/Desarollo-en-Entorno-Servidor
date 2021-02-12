@@ -18,7 +18,7 @@ for ($i=0; $i < $CANT_PELIS; $i++) {
     $pelis = json_decode($datos);
 
     //Mientras haya algun fallo sigo recogiendo peliculas
-    while(isset($pelis->Error) || $pelis->Poster == "N/A" || $pelis->Plot == "N/A"){
+    while($pelis->Response == "False" || $pelis->Poster == "N/A" || $pelis->Plot == "N/A"){
         $YEAR = rand($MIN_YEAR,$MAX_YEAR);
         $TITLE = $a_z[rand(0,(strlen($a_z)-1))];
         $datos = file_get_contents("$uri?t=$TITLE&y=$YEAR&$key");
@@ -32,8 +32,6 @@ for ($i=0; $i < $CANT_PELIS; $i++) {
         "plot" => $pelis->Plot,
         "enlace" => "https://www.imdb.com/title/$id/"
     ];
-
-    $YEAR++;
 
 }
 

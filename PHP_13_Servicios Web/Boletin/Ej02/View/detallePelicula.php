@@ -14,21 +14,24 @@
 <body>
     <?php include "../View/header.php" ?>
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <?php if(!isset($data["error"])): ?>
             <?php foreach ($data["peli"] as $peli):?>
-            <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
+            <div class="col-4 mb-3">
                 <div class="card" style="width: 100%;">
                     <a href="<?=$peli["enlace"]?>" target="_blank"><img src="<?=$peli["poster"]?>" class="card-img-top"
                             alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title"><?=$peli["title"]?></h5>
+                        <p class="card-text"><?=$peli["plot"]?></p>
                     </div>
                 </div>
             </div>
             <?php endforeach; ?>
             <?php else: ?>
-                <h2><?=$data["error"]?></h2>
+            <div class="alert alert-danger" role="alert">
+                <?=$data["error"]?><a href="index.php" class="alert-link">Pinche aqui para volver</a>
+            </div>
             <?php endif; ?>
         </div>
     </div>
