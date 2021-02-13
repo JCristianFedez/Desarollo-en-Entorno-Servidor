@@ -8,9 +8,11 @@ if(isset($_REQUEST["cant"])){
 
     $maxCol = 0;
     // Calculo las columnas necesarias
-    foreach ($cartas as $palo) {
-        if(count($palo) > $maxCol){
-            $maxCol = count($palo);
+    if(!isset($cartas->Error)){
+        foreach ($cartas as $palo) {
+            if(count($palo) > $maxCol){
+                $maxCol = count($palo);
+            }
         }
     }
 }
@@ -41,7 +43,7 @@ if(isset($_REQUEST["cant"])){
                 <button class="btn btn-primary" type="submit">Pedir</button>
             </div>
         </form>
-        <?php if(isset($cartas)): ?>
+        <?php if(isset($cartas) && !isset($cartas->Error)): ?>
         <div class="row justify-content-center">
             <h3 class="text-center">Tus Cartas</h3>
             <div class="col-10">
@@ -68,6 +70,13 @@ if(isset($_REQUEST["cant"])){
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <?php elseif(isset($cartas) && isset($cartas->Error)): ?>
+        <div class="row justify-content-center">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Error</strong> <?=$cartas->Error?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
         <?php endif; ?>

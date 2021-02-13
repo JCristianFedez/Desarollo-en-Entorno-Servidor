@@ -11,7 +11,7 @@ if(isset($_REQUEST["cant"])){
 
     if($_REQUEST["cant"]<=0 || $_REQUEST["cant"]>40){
 
-        $devolver = ["Error" => "Parameter cant not valid"];
+        $devolver = ["Error" => "Parameter ?cant not valid"];
 
     }else{
 
@@ -34,7 +34,7 @@ if(isset($_REQUEST["cant"])){
     }
 
 }else{
-    $devolver = ["Error" => "Paramet cant inexistent"];
+    $devolver = ["Error" => "Paramet ?cant inexistent"];
 }
 echo json_encode($devolver);
 ?>
