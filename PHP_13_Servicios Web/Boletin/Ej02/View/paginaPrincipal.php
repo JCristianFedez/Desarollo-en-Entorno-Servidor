@@ -22,8 +22,9 @@
             <?php foreach ($data["peli"] as $peli):?>
             <div class="col-xl-3 col-md-4 col-sm-6 mb-3">
                 <div class="card" style="width: 100%;">
-                    <a href="<?=$peli["enlace"]?>" target="_blank"><img src="<?=$peli["poster"]?>" class="card-img-top"
-                            alt="..."></a>
+                    <a href="masinfoPeli.php?idPeli=<?=$peli["id"]?>" target="_blank">
+                        <img src="<?=$peli["poster"]?>" class="card-img-top" alt="...">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title"><?=$peli["title"]?></h5>
                         <p class="card-text"><?=$peli["plot"]?></p>

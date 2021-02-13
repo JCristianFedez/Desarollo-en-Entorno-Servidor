@@ -16,18 +16,41 @@
     <div class="container">
         <div class="row justify-content-center">
             <?php if(!isset($data["error"])): ?>
-            <?php foreach ($data["peli"] as $peli):?>
-            <div class="col-4 mb-3">
-                <div class="card" style="width: 100%;">
-                    <a href="<?=$peli["enlace"]?>" target="_blank"><img src="<?=$peli["poster"]?>" class="card-img-top"
-                            alt="..."></a>
-                    <div class="card-body">
-                        <h5 class="card-title"><?=$peli["title"]?></h5>
-                        <p class="card-text"><?=$peli["plot"]?></p>
-                    </div>
-                </div>
+            <div class="col-md-4 mb-3 text-center">
+                <a href="<?=$data["peli"]["enlace"]?>" target="_blank">
+                    <img src="<?=$data["peli"]["poster"]?>" class="img-fluid" alt="...">
+                </a>
             </div>
-            <?php endforeach; ?>
+            <div class="col mb-3 align-self-center">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <h5 class="card-title">
+                            <?=$data["peli"]["title"]?>
+                            <span class="badge bg-warning text-dark"><?=$data["peli"]["puntos"]?></span>
+                        </h5>
+                    </li>
+                    <li class="list-group-item">
+                        <p class="card-text"><?=$data["peli"]["plot"]?></p>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Director</span> <?=$data["peli"]["director"]?>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Actores</span> 
+                            <?=$data["peli"]["actores"]?>
+                    </li>
+                    <li class="list-group-item"><span class="fw-bold">Fecha estreno</span>
+                        <?=$data["peli"]["estreno"]?>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Genero</span> <?=$data["peli"]["genero"]?>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Enlace</span>
+                        <a href="<?=$data["peli"]["enlace"]?>"><?=$data["peli"]["enlace"]?></a>
+                    </li>
+                </ul>
+            </div>
             <?php else: ?>
             <div class="alert alert-danger" role="alert">
                 <?=$data["error"]?><a href="index.php" class="alert-link">Pinche aqui para volver</a>

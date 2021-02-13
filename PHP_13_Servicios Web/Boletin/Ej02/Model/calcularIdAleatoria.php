@@ -1,5 +1,4 @@
 <?php 
-// $key = "apikey=d887bcdc";
 $key = "apikey=e265140a";
 $uri = "http://www.omdbapi.com/";
 // Formato de id = ?i=tt0000000
@@ -15,12 +14,4 @@ do {
 echo "<script>console.log($aux)</script>";
 
 $id = $peli->imdbID;
-$data["peli"][]=[
-    "poster"=>$peli->Poster,
-    "title" => $peli->Title,
-    "plot" => $peli->Plot,
-    "enlace" => "https://www.imdb.com/title/$id/"
-];
-
-include "../View/detallePelicula.php";
 ?>

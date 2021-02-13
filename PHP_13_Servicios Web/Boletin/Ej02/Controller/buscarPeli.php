@@ -34,12 +34,6 @@ if($peliculas->Response == "False"){
         while((count($peliculas->Search) == 10)){
             foreach ($peliculas->Search as $peli) {
                 if($peli->Poster != "N/A"){
-                    $id = $peli->imdbID;
-                    $data["peli"][]=[
-                        "poster"=>$peli->Poster,
-                        "title" => $peli->Title,
-                        "enlace" => "https://www.imdb.com/title/$id/"
-                    ];
                     $data["pag"]++;
                 }
             }
@@ -57,7 +51,8 @@ if($peliculas->Response == "False"){
                 $data["peli"][]=[
                     "poster"=>$peliculas->Search[0]->Poster,
                     "title" => $peliculas->Search[0]->Title,
-                    "enlace" => "https://www.imdb.com/title/$id/"
+                    "enlace" => "https://www.imdb.com/title/$id/",
+                    "id" => $peliculas->imdbID
                 ];
             }
     }else{
@@ -68,7 +63,8 @@ if($peliculas->Response == "False"){
                     $data["peli"][]=[
                         "poster"=>$peli->Poster,
                         "title" => $peli->Title,
-                        "enlace" => "https://www.imdb.com/title/$id/"
+                        "enlace" => "https://www.imdb.com/title/$id/",
+                        "id" => $peli->imdbID
                     ];
                 }
             }

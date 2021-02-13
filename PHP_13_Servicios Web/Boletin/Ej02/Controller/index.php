@@ -27,7 +27,8 @@ for ($i=0; $i < $CANT_PELIS; $i++) {
 
     $id = $pelis->imdbID;
     $data["peli"][]=[
-        "poster"=>$pelis->Poster,
+        "id" => $id,
+        "poster" => $pelis->Poster,
         "title" => $pelis->Title,
         "plot" => $pelis->Plot,
         "enlace" => "https://www.imdb.com/title/$id/"
