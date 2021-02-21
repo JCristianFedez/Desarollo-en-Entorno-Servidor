@@ -1,0 +1,34 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <h1>Configura el aspecto de tu página</h1>
+    <form action="Ejercicio3.php" method="post">
+        <br><br> Elige un color <select name="color2" >
+            <option value="grey">Gris</option>
+            <option value="green">Verde</option>
+            <option value="yellow">Amarillo</option>
+        </select>
+        <br><br><input type="color" name="color">
+        <br><br> Elije el tipo de letra <select name="letra" >
+            <option value="times new roman">times new roman</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+        </select>
+        <br><br> Elije la alineación del texto
+            <br><input type="radio" value="left" name="alineacion" required>Izquierda
+            <br><input type="radio" value="center" name="alineacion">Centrada
+            <br><input type="radio" value="right" name="alineacion">Derecha
+        <br><br> Elige una imagen <select name="imagen" >
+            <option value="gato.png">GATO</option>
+            <option value="perro.png">PERRO</option>
+            <option value="cerdo.png">CERDO</option>
+        </select>
+        <br><br><input type="submit" value="Ver diseño">
+    </form>
+</body>
+</html>
