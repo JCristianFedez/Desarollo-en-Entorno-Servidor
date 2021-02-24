@@ -1,6 +1,6 @@
 <?php 
 if(isset($_REQUEST["enviado"])){
-    $uri = "http://localhost/php-instituto/PHP_13_Servicios%20Web/Adicionales/Services/tienda.php";
+    $uri = "http://localhost/PHP_Instituto/PHP_13_Servicios%20Web/Adicionales/Services/tienda.php";
 
     if($_REQUEST["apiKey"]){
 

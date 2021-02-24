@@ -1,5 +1,5 @@
 <?php 
-$uri = "http://localhost/php-instituto/PHP_13_Servicios%20Web/Boletin/Ej03/conversor.php";
+$uri = "http://localhost/PHP_Instituto/PHP_13_Servicios%20Web/Boletin/Ej03/conversor.php";
 if(isset($_REQUEST["action"]) && isset($_REQUEST["cant"])){
     $cant = $_REQUEST['cant'];
     switch($_REQUEST["action"]){
